@@ -11,7 +11,7 @@ mixin FieldItemMixin {
       return Container(
         width: labelWidth,
         margin: EdgeInsets.only(right: 15),
-        child: Text(label, style: TextStyle(fontSize: 28.w, color: ThemeColorUtil.titleTextColor(context),),),
+        child: Text(label, style: TextStyle(fontSize: 15, color: ThemeColorUtil.titleTextColor(context),),),
       );
     }
     return WidgetUtil.emptyWidget();

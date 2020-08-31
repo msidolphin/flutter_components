@@ -1,4 +1,4 @@
-enum FieldInputType {
+enum FormInputType {
   text,
   number,
   digit,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/ColorUtil.dart';
 import '../utils/ViewportUtil.dart';
-import 'enum/FieldInputType.dart';
+import 'enum/FormInputType.dart';
 import 'formatter/NumberInputFormatter.dart';
 typedef ValueDisabled();
 
@@ -19,7 +19,7 @@ class RadiusInputField extends StatefulWidget {
   final double radius;
   final bool readOnly;
   final String placeholder;
-  final FieldInputType type;
+  final FormInputType type;
   final bool disabled;
   final int precision;
   final bool clearable;
@@ -40,7 +40,7 @@ class RadiusInputField extends StatefulWidget {
     this.value,
     this.readOnly = false,
     this.placeholder = "请输入",
-    this.type = FieldInputType.text,
+    this.type = FormInputType.text,
     this.disabled = false,
     this.precision = 2,
     this.clearable = false,
@@ -117,7 +117,7 @@ class _RadiusInputField extends State<RadiusInputField>
          } : null,
         keyboardType: _getInputType(),
         focusNode: focusNode,
-        obscureText: widget.type == FieldInputType.password,
+        obscureText: widget.type == FormInputType.password,
         controller: controller,
         readOnly: widget.disabled,
         textAlign: TextAlign.center,
@@ -150,11 +150,11 @@ class _RadiusInputField extends State<RadiusInputField>
 
   List<TextInputFormatter> _getInputFormatter () {
     switch(widget.type) {
-      case FieldInputType.text:
+      case FormInputType.text:
         return null;
-      case FieldInputType.number:
+      case FormInputType.number:
         return [PrecisionLimitFormatter(widget.precision)];
-      case FieldInputType.digit:
+      case FormInputType.digit:
         return [WhitelistingTextInputFormatter.digitsOnly];
       default:
         return null;
@@ -163,13 +163,13 @@ class _RadiusInputField extends State<RadiusInputField>
 
   TextInputType _getInputType() {
     switch(widget.type) {
-      case FieldInputType.text:
+      case FormInputType.text:
         return TextInputType.text;
-      case FieldInputType.number:
+      case FormInputType.number:
         return TextInputType.numberWithOptions(decimal: true, signed: false);
-      case FieldInputType.digit:
+      case FormInputType.digit:
         return TextInputType.number;
-      case FieldInputType.password:
+      case FormInputType.password:
         return TextInputType.visiblePassword;
       default:
         return TextInputType.text;
