@@ -3,6 +3,7 @@ import 'package:flutter_components/widgets.dart';
 
 import 'view/ButtonView.dart';
 import 'view/FormView.dart';
+import 'view/NoticeBarView.dart';
 
 void main() => runApp(MyApp());
 
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: FormView() // This trailing comma makes auto-formatting nicer for build methods.
+      body: NoticeBarView() // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
