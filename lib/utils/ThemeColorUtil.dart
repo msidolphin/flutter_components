@@ -10,6 +10,14 @@ class ThemeColorUtil {
     return Theme.of(context).primaryColor;
   }
 
+  /// 主题色
+  static LinearGradient primaryLineGradientColor(BuildContext context) {
+    return  LinearGradient(
+        colors: [Color(0xFF409BFF), Color(0xFF1677FF)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight);
+  }
+
   /// 主题文本色
   static Color primaryTextColor(BuildContext context) {
     return Ui.isDarkMode(context) ? Colors.white : Theme.of(context).primaryColor;
@@ -25,6 +33,7 @@ class ThemeColorUtil {
     return Ui.isDarkMode(context) ? Color(0xFF696969) : Color(0xff333333);
   }
 
+
   /// 副标题
   static Color subTitleTextColor(BuildContext context) {
     return Ui.isDarkMode(context) ? Color(0xFF696969) : Color(0xff999999);
@@ -33,6 +42,16 @@ class ThemeColorUtil {
   /// 正文
   static Color bodyTextColor(BuildContext context) {
     return Ui.isDarkMode(context) ? Color(0xFF696969) : Color(0xff333333);
+  }
+
+  /// 数字金额颜色
+  static Color numberTextColor(BuildContext context) {
+    return Ui.isDarkMode(context) ? Colors.white : Color(0xFFFF3B30);
+  }
+
+  /// 数字金额颜色
+  static Color assistButtonColor(BuildContext context) {
+    return Ui.isDarkMode(context) ? Colors.white : Color(0xFFFF8F1F);
   }
 
   /// 暗文字/失效
@@ -61,6 +80,11 @@ class ThemeColorUtil {
   }
 
   /// 卡片内背景色
+  static Color innerBackGroundColor(BuildContext context) {
+    return Ui.isDarkMode(context) ? Theme.of(context).scaffoldBackgroundColor : Color(0xFFF7F7F7);
+  }
+
+  /// 背景色
   static Color backGroundColor(BuildContext context) {
     return Ui.isDarkMode(context) ? Theme.of(context).scaffoldBackgroundColor : Color(0xFFFFFFFF);
   }

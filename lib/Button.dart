@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart' hide CupertinoActivityIndicator;
+ import 'package:flutter/cupertino.dart' hide CupertinoActivityIndicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
