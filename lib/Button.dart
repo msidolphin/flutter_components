@@ -56,6 +56,7 @@ class _Button extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return GestureDetector(
       onTap: widget.disabled ? () {
         widget.onDisabled?.call();
@@ -78,7 +79,7 @@ class _Button extends State<Button> {
           highlightColor: widget.ghost ? Colors.transparent : null,
           hoverColor: widget.ghost ? Colors.transparent : null,
           focusColor: widget.ghost ? Colors.transparent : null,
-          splashColor: widget.ghost ? Colors.transparent : null,
+          splashColor: widget.ghost ? Color.fromRGBO(primaryColor.red, primaryColor.green, primaryColor.blue, 0.05) : null,
           highlightElevation: 0,
           textColor: textColor(),
           disabledColor: disabledColor(),

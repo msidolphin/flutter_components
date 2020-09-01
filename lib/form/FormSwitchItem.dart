@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../form/FieldItemMixin.dart';
 import '../list/AbstractListItem.dart';
 
 import 'RawFieldItem.dart';
 
 // ignore: must_be_immutable
-class FieldSwitchItem extends AbstractListItem {
+class FormSwitchItem extends AbstractListItem {
 
   final String label;
 
@@ -22,7 +23,7 @@ class FieldSwitchItem extends AbstractListItem {
 
   final Color activeColor;
 
-  FieldSwitchItem({
+  FormSwitchItem({
     Key key,
     this.label,
     this.labelWidth,
@@ -43,8 +44,17 @@ class FieldSwitchItem extends AbstractListItem {
 
 }
 
-class _FieldSwitchItem extends State<FieldSwitchItem>
+class _FieldSwitchItem extends State<FormSwitchItem>
     with FieldItemMixin {
+
+  bool _currentValue = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +76,14 @@ class _FieldSwitchItem extends State<FieldSwitchItem>
 
   Widget renderSwitch() {
     return CupertinoSwitch(
-      value: widget.value,
-      activeColor: widget.activeColor,
+      value: _currentValue,
+      activeColor: widget.activeColor != null ? widget.activeColor : Theme.of(context).primaryColor,
       onChanged: (value) {
         widget.onChanged(value);
+        _currentValue = value;
+        setState(() {
+
+        });
       },
     );
   }

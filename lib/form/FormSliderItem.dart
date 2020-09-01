@@ -8,7 +8,7 @@ import '../list/AbstractListItem.dart';
 import '../utils/WidgetUtil.dart';
 
 // ignore: must_be_immutable
-class FieldSliderItem extends AbstractListItem {
+class FormSliderItem extends AbstractListItem {
 
   final String label;
 
@@ -37,7 +37,7 @@ class FieldSliderItem extends AbstractListItem {
 
   final ValueChanged<double> onChanged;
 
-  FieldSliderItem({
+  FormSliderItem({
     Key key,
     this.label,
     this.labelWidth,
@@ -63,8 +63,17 @@ class FieldSliderItem extends AbstractListItem {
 
 }
 
-class _FieldSliderItemState extends State<FieldSliderItem>
+class _FieldSliderItemState extends State<FormSliderItem>
   with FieldItemMixin {
+
+  double _currentValue;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +90,7 @@ class _FieldSliderItemState extends State<FieldSliderItem>
                 renderPrefix(),
                 Expanded(
                   child: CupertinoSlider(
-                    value: widget.value,
+                    value: _currentValue,
                     min: widget.min,
                     max: widget.max,
                     divisions: widget.divisions,
@@ -89,6 +98,10 @@ class _FieldSliderItemState extends State<FieldSliderItem>
                     thumbColor: widget.thumbColor,
                     onChanged: (value) {
                       widget.onChanged(value);
+                      _currentValue = value;
+                      setState(() {
+
+                      });
                     },
                   ),
                 ),

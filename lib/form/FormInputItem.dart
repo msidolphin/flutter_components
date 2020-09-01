@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../form/RawFieldItem.dart';
-import '../form/enum/FieldInputType.dart';
+import '../form/enum/FormInputType.dart';
 import '../list/AbstractListItem.dart';
 import '../utils/StringUtil.dart';
 import '../utils/Ui.dart';
@@ -13,15 +13,17 @@ import '../utils/ThemeColorUtil.dart';
 import 'formatter/NumberInputFormatter.dart';
 
 // ignore: must_be_immutable
-class FieldInputItem extends AbstractListItem {
+class FormInputItem extends AbstractListItem {
 
   final String label;
+
+  final String subTitle;
 
   /// width of label
   final double labelWidth;
 
   /// type of input
-  final FieldInputType type;
+  final FormInputType type;
 
   /// content to be appear when the value is blank
   final String placeholder;
@@ -58,16 +60,16 @@ class FieldInputItem extends AbstractListItem {
 
   final Widget trailing;
 
-  final CrossAxisAlignment align;
+  final TextAlign align;
 
   final bool showWordLimit;
 
 
-  FieldInputItem({
+  FormInputItem({
     GlobalKey<FieldInputItemState> key,
     this.label,
     this.labelWidth,
-    this.type = FieldInputType.text,
+    this.type = FormInputType.text,
     @required this.value,
     this.maxLength,
     @required this.onChanged,
@@ -82,8 +84,9 @@ class FieldInputItem extends AbstractListItem {
     this.onBlur,
     this.onFocused,
     this.maxLines = 1,
-    this.align = CrossAxisAlignment.center,
-    this.showWordLimit = false
+    this.align = TextAlign.left,
+    this.showWordLimit = false,
+    this.subTitle = '',
   }) :
 //  assert(onChanged != null),
   super(key: key);
@@ -95,7 +98,7 @@ class FieldInputItem extends AbstractListItem {
 
 }
 
-class FieldInputItemState extends State<FieldInputItem>
+class FieldInputItemState extends State<FormInputItem>
     with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
 
   TextEditingController controller;
@@ -137,7 +140,6 @@ class FieldInputItemState extends State<FieldInputItem>
       isLast: widget.isLast,
       verticalPadding: widget.maxLines == 1 ? 0 : 12,
       child: Row(
-        crossAxisAlignment: widget.align,
         children: <Widget>[
           _renderLabel(),
           _renderInput(),
@@ -149,14 +151,36 @@ class FieldInputItemState extends State<FieldInputItem>
 
   Widget _renderLabel () {
     if (StringUtil.isNotBlank(widget.label)) {
-      return Container(
+      return StringUtil.isBlank(widget.subTitle) ? Container(
         width: widget.labelWidth,
         margin: EdgeInsets.only(right: 15),
         child: Text(widget.label,
           style: TextStyle(
-            fontSize: 28.w,
+            fontSize: 15,
             color: ThemeColorUtil.titleTextColor(context)
           ),
+        ),
+      ) : Container(
+        width: widget.labelWidth,
+        margin: EdgeInsets.only(right: 15),
+        alignment: Alignment.centerLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(widget.label,
+              style: TextStyle(
+                  fontSize: 15,
+                  color: ThemeColorUtil.titleTextColor(context)
+              ),
+            ),
+            Text(widget.subTitle,
+              style: TextStyle(
+                  fontSize: 14,
+                  color: ThemeColorUtil.subTitleTextColor(context)
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -168,19 +192,23 @@ class FieldInputItemState extends State<FieldInputItem>
       child: TextFormField(
         keyboardType: _getInputType(),
         focusNode: focusNode,
-        obscureText: widget.type == FieldInputType.password,
+        obscureText: widget.type == FormInputType.password,
         controller: controller,
         readOnly: widget.readOnly,
         autofocus: widget.autoFocus,
         enabled: !widget.disabled,
         maxLines: widget.maxLines,
+        textAlign: widget.align,
         onChanged: (value) {
           if (_currentValue == value) return;
           _currentValue = value;
           widget.onChanged(value);
+          setState(() {
+
+          });
         },
         style: TextStyle(
-            fontSize: 28.w,
+            fontSize: 15,
             textBaseline: TextBaseline.alphabetic
         ),
         cursorColor: Ui.isDarkMode(context) ? Colors.white : Theme.of(context).primaryColor,
@@ -200,12 +228,13 @@ class FieldInputItemState extends State<FieldInputItem>
   }
 
   Widget _renderClearButton () {
-    if (widget.clearable && StringUtil.isNotBlank(widget.value) && focused) {
+    if (widget.clearable && StringUtil.isNotBlank(_currentValue) && focused) {
       return GestureDetector(
         onTap: () {
           setState(() {
             controller.clear();
             widget.onChanged("");
+            _currentValue = "";
           });
         },
         child: Icon(Icons.clear, color: Colors.grey,),
@@ -216,11 +245,11 @@ class FieldInputItemState extends State<FieldInputItem>
 
   List<TextInputFormatter> _getInputFormatter () {
     switch(widget.type) {
-      case FieldInputType.text:
+      case FormInputType.text:
         return null;
-      case FieldInputType.number:
+      case FormInputType.number:
         return [PrecisionLimitFormatter(widget.precision)];
-      case FieldInputType.digit:
+      case FormInputType.digit:
         return [WhitelistingTextInputFormatter.digitsOnly];
       default:
         return null;
@@ -229,13 +258,13 @@ class FieldInputItemState extends State<FieldInputItem>
 
   TextInputType _getInputType() {
     switch(widget.type) {
-      case FieldInputType.text:
+      case FormInputType.text:
         return TextInputType.text;
-      case FieldInputType.number:
+      case FormInputType.number:
         return TextInputType.numberWithOptions(decimal: true);
-      case FieldInputType.digit:
+      case FormInputType.digit:
         return TextInputType.number;
-      case FieldInputType.password:
+      case FormInputType.password:
         return TextInputType.visiblePassword;
       default:
         return TextInputType.text;

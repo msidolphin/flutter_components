@@ -4,7 +4,7 @@ import '../list/AbstractListItem.dart';
 import '../utils/Ui.dart';
 
 // ignore: must_be_immutable
-class FieldGroup extends StatelessWidget {
+class FormGroup extends StatelessWidget {
 
   final List<AbstractListItem> children;
 
@@ -14,7 +14,7 @@ class FieldGroup extends StatelessWidget {
 
   final bool bordered;
 
-  FieldGroup(
+  FormGroup(
       {Key key, this.margin, @required this.children, this.bordered = false}
   ) : assert(children != null), super(key: key) {
     handleLastItem();

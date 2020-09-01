@@ -3,6 +3,8 @@ import 'package:flutter_components/widgets.dart';
 
 import 'view/ButtonView.dart';
 import 'view/ColorView.dart';
+import 'view/FormView.dart';
+import 'view/NoticeBarView.dart';
 
 void main() => runApp(MyApp());
 
