@@ -134,6 +134,7 @@ class FieldInputItemState extends State<FormInputItem>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RawFieldItem(
       leading: widget.leading,
       trailing: widget.trailing,

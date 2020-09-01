@@ -60,12 +60,12 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
   }
 
   void init(Duration time) {
-    _maxLeft = _barKey.currentContext?.size.width;
-    _boxWidth = _boxKey.currentContext?.size.width;
+    _maxLeft = _barKey.currentContext?.size?.width;
+    _boxWidth = _boxKey.currentContext?.size?.width;
     if (_maxLeft == null) _maxLeft = 0;
     if (_boxWidth == null) _boxWidth = 0;
     // 判断是否滚动
-    if (_maxLeft > _boxWidth) {
+    if (_maxLeft > _boxWidth && widget.isScrollable) {
       // 初始化动画
       controller = AnimationController(
           duration: Duration(milliseconds: widget.duration),
