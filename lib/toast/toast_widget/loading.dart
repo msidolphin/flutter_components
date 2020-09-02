@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import '../../i18n/i18n.dart';
+import '../../utils/Gaps.dart';
 
 //加载提示的Widget
 class LoadingWidget extends StatelessWidget {
@@ -28,17 +29,17 @@ class LoadingWidget extends StatelessWidget {
         bottom: 16
       ),
       decoration: const BoxDecoration(
-          color: Colors.black45,
+          color: const Color.fromRGBO(58, 58, 58, 0.8),
           borderRadius: BorderRadius.all(Radius.circular(8))),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset("lib/ui/assets/loading.gif", width: 60,height: 60, fit: BoxFit.cover,),
-//          const CupertinoActivityIndicator(
-//          ),
-//          Gaps.vGap12,
-          new Text(text == null || text.isEmpty ? I18n.getToastLoadingText(locale) : text, style: TextStyle(color: Colors.white),)
+          const CupertinoActivityIndicator(
+            radius: 16,
+          ),
+          Gaps.vGap12,
+          new Text(text == null || text.isEmpty ? I18n.getToastLoadingText(locale) : text, style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),)
         ],
       ),
     );

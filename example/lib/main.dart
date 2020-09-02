@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_components/widgets.dart';
+import 'view/ListGroupView.dart';
+import 'view/ToastVIew.dart';
 import 'view/ColorView.dart';
 import 'view/DialogView.dart';
 import 'view/FormView.dart';
 import 'view/NoticeBarView.dart';
+import 'view/ResultView.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-      ).copyWith(
-        primaryColor: Color(0xff409bff)
+    return ToastInit(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+        ).copyWith(
+          primaryColor: Color(0xff409bff)
+        ),
+        navigatorObservers: [BotToastNavigatorObserver()],
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
