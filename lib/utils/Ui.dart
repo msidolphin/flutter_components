@@ -19,8 +19,9 @@ class Ui {
     bool showCancelButton = true,
     String cancelText = '取消',
     String confirmText = '确认',
-    @required Function onConfirm,
-    Function onCancel
+    Function onConfirm,
+    Function onCancel,
+    List<FlatButton> actions = const []
   }) {
     assert(child != null);
     return Dialog.show(
@@ -31,6 +32,7 @@ class Ui {
         confirmText: confirmText,
         showCancel: showCancelButton,
         child: child,
+        actions: actions,
         onConfirm: onConfirm,
         onCancel: onCancel,
       ),
@@ -39,12 +41,13 @@ class Ui {
 
   static Future showConfirmDialog(BuildContext context, {
     @required String message,
-    String title = '提示',
+    String title = '',
     bool showCancelButton = true,
     String cancelText = '取消',
     String confirmText = '确认',
-    @required Function onConfirm,
-    Function onCancel
+    Function onConfirm,
+    Function onCancel,
+    List<FlatButton> actions = const []
   }) async {
     return Dialog.show(
       context: context,
@@ -53,6 +56,7 @@ class Ui {
         cancelText: cancelText,
         confirmText: confirmText,
         showCancel: showCancelButton,
+        actions: actions,
         child: Text(message,
           textAlign: TextAlign.center,
           style: const TextStyle(

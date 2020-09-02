@@ -27,7 +27,7 @@ class Dialog {
           ),
         );
       },
-      barrierDismissible: true,
+      barrierDismissible: barrierDismissible,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: Colors.black45,
       transitionDuration: const Duration(milliseconds: 550),

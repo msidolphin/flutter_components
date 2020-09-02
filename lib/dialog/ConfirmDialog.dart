@@ -19,8 +19,11 @@ class ConfirmDialog extends BaseDialog {
   final bool showCancel;
   final String title;
   final double width;
+  final BorderRadiusGeometry borderRadius;
   final EdgeInsetsGeometry bodyPadding;
   final EdgeInsetsGeometry padding;
+  /// 如果传入了actions，那么将不会展示默认的取消和确认按钮，并且排列方式为垂直排列
+  final List<FlatButton> actions;
 
   ConfirmDialog({
     Key key,
@@ -33,16 +36,18 @@ class ConfirmDialog extends BaseDialog {
     this.confirmText,
     this.cancelText,
     this.showCancel = true,
-    this.bodyPadding = const EdgeInsets.only(left: 12, right: 12, bottom: 15),
-    this.padding = const EdgeInsets.only(top: 24.0)
-  }): super(child: child);
+    this.bodyPadding = const EdgeInsets.only(left: 20, right: 20, bottom: 28),
+    this.padding = const EdgeInsets.only(top: 28.0),
+    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
+    this.actions = const [],
+  }): super(child: child, borderRadius: borderRadius);
 
   @override
   Widget render(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
           color: ThemeColorUtil.backGroundColor(context),// Theme.of(context).trans,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: borderRadius,
         ),
         width: this.width,
         padding: this.padding,
@@ -66,14 +71,34 @@ class ConfirmDialog extends BaseDialog {
                     padding: this.bodyPadding,
                     child: this.child,
                   ),
-                  Row(
+                  actions == null || actions.isEmpty ? Row(
                     children: renderButtons(context)
-                )],
+                  ) : Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: renderActions(context),
+                  )
+                ],
               ),
             )
           ],
         )
     );
+  }
+
+  List<Widget> renderActions(BuildContext context) {
+    List<Widget> widgets = [];
+    widgets.add(Divider(height: 0.5,));
+    for (int i = 0; i < actions.length; ++i) {
+      widgets.add(SizedBox(
+        height: 48.0,
+        width: width,
+        child: actions[i],
+      ));
+      if (i < actions.length - 1) {
+        widgets.add(Divider(height: 0.5,));
+      }
+    }
+    return widgets;
   }
 
   List<Widget> renderButtons (BuildContext context) {
@@ -101,6 +126,10 @@ class ConfirmDialog extends BaseDialog {
                   style: TextStyle(
                       fontSize: 18
                   ),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    side: BorderSide.none
                 ),
                 textColor: ColorUtil.web("#999"),
                 onPressed: () {
@@ -139,6 +168,10 @@ class ConfirmDialog extends BaseDialog {
                     color: ThemeColorUtil.primaryTextColor(context)
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    side: BorderSide.none
+                ),
                 textColor: Theme.of(context).primaryColor,
                 onPressed: () {
                   if (this.onConfirm != null) {
@@ -173,6 +206,10 @@ class ConfirmDialog extends BaseDialog {
                   style: TextStyle(
                       fontSize: 18
                   ),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    side: BorderSide.none
                 ),
                 textColor: Theme.of(context).primaryColor,
                 onPressed: () {
