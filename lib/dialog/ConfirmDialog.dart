@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_components/utils/Gaps.dart';
 import '../i18n/i18n.dart';
 import '../utils/ColorUtil.dart';
 
@@ -24,6 +25,7 @@ class ConfirmDialog extends BaseDialog {
   final EdgeInsetsGeometry padding;
   /// 如果传入了actions，那么将不会展示默认的取消和确认按钮，并且排列方式为垂直排列
   final List<FlatButton> actions;
+  final bool showCloseButton;
 
   ConfirmDialog({
     Key key,
@@ -40,48 +42,61 @@ class ConfirmDialog extends BaseDialog {
     this.padding = const EdgeInsets.only(top: 28.0),
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.actions = const [],
+    this.showCloseButton = false
   }): super(child: child, borderRadius: borderRadius);
 
   @override
   Widget render(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          color: ThemeColorUtil.backGroundColor(context),// Theme.of(context).trans,
-          borderRadius: borderRadius,
-        ),
-        width: this.width,
-        padding: this.padding,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Offstage(
-              offstage: title.isEmpty,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  title.isEmpty ? '' : title,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
+    return Stack(
+      children: <Widget>[
+        Container(
+            decoration: BoxDecoration(
+              color: ThemeColorUtil.backGroundColor(context),// Theme.of(context).trans,
+              borderRadius: borderRadius,
             ),
-            Container(
-              child: Column(
-                children: [
-                  Container(
-                    padding: this.bodyPadding,
-                    child: this.child,
+            width: this.width,
+            padding: this.padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Offstage(
+                  offstage: title.isEmpty,
+                  child: Text(
+                    title.isEmpty ? '' : title,
+                    style: TextStyle(fontSize: 18),
                   ),
-                  actions == null || actions.isEmpty ? Row(
-                    children: renderButtons(context)
-                  ) : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: renderActions(context),
-                  )
-                ],
-              ),
+                ),
+                SizedBox(height: 8,),
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: this.bodyPadding,
+                        child: this.child,
+                      ),
+                      actions == null || actions.isEmpty ? Row(
+                        children: renderButtons(context)
+                      ) : Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: renderActions(context),
+                      )
+                    ],
+                  ),
+                )
+              ],
             )
-          ],
-        )
+        ),
+        showCloseButton ? Positioned(
+          right: 0,
+          top: 0,
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            icon: Icon(Icons.close), color: Color(0xffdddddd),
+          )
+        ) : Gaps.empty
+      ],
     );
   }
 

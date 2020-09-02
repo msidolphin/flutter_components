@@ -67,7 +67,7 @@ class ListGroupView extends StatelessWidget {
                 height: 28,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
-                    color: ThemeColorUtil.disabledColor(context),
+                    color: Color(0xffdddddd),
                 ),
               ),
               onPressed: () {},
@@ -84,13 +84,20 @@ class ListGroupView extends StatelessWidget {
                 height: 28,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: ThemeColorUtil.disabledColor(context),
+                  color: Color(0xffdddddd),
                 ),
               ),
               title: "标题名称",
             ),
             ListItem(
-              icon: "https://gdjcyimage.oss-cn-shenzhen.aliyuncs.com/weapp-images/icon/phone.png",
+              leading: Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2),
+                  color: Color(0xffdddddd),
+                ),
+              ),
               title: "手机号",
               trailing: ListItemTrailing(
                  text: "18655256672",
@@ -104,7 +111,7 @@ class ListGroupView extends StatelessWidget {
                 height: 28,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: ThemeColorUtil.disabledColor(context),
+                  color: Color(0xffdddddd),
                 ),
               ),
               title: "标题名称",
@@ -113,7 +120,7 @@ class ListGroupView extends StatelessWidget {
                 height: 28,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: ThemeColorUtil.disabledColor(context),
+                  color: Color(0xffdddddd),
                 ),
               ),
               onPressed: () {},

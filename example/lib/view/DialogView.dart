@@ -83,9 +83,9 @@ class DialogView extends StatelessWidget {
             }
           },),
           TitleWidget(
-            title: '对话框（自定义操作按钮）',
+            title: '确认对话框（自定义操作按钮）',
           ),
-          Button('对话框', margin: EdgeInsets.symmetric(horizontal: 15), onPressed: () async {
+          Button('确认框', margin: EdgeInsets.symmetric(horizontal: 15), onPressed: () async {
             Ui.showConfirmDialog(
                 context,
                 title: '标题',
@@ -106,6 +106,7 @@ class DialogView extends StatelessWidget {
                       Navigator.of(context).pop(true);
                       Ui.showSnackBar(context, text: '打开');
                     },
+                    textColor: ThemeColorUtil.primaryTextColor(context),
                   ),
                   FlatButton(
                     child: Text('复制',
@@ -122,6 +123,7 @@ class DialogView extends StatelessWidget {
                       Navigator.of(context).pop(true);
                       Ui.showSnackBar(context, text: '复制');
                     },
+                    textColor: ThemeColorUtil.primaryTextColor(context),
                   ),
                   FlatButton(
                     child: Text('取消',
@@ -138,10 +140,33 @@ class DialogView extends StatelessWidget {
                       Navigator.of(context).pop(false);
                       Ui.showSnackBar(context, text: '取消');
                     },
+                    textColor: Colors.red,
                   )
                 ]
             );
           },),
+          TitleWidget(
+            title: '确认对话框（自定义内容）',
+          ),
+          Button('确认框',
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            onPressed: () async {
+              Ui.showCustomConfirmDialog(context,
+                  showCloseButton: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SvgPicture.string(ResultPageSvgLib.WAITED, width: 65, height: 65,),
+                      SizedBox(height: 12,),
+                      Text('说明当前状态、提示用户解决方案，最好不要超过两行。', style: TextStyle(
+                        fontSize: 14,
+                        color: ThemeColorUtil.titleTextColor(context)
+                      ), textAlign: TextAlign.center,)
+                    ],
+                  )
+              );
+            },
+          )
         ],
       ),
     );

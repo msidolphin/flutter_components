@@ -91,7 +91,7 @@ class _ListItemState extends State<ListItem> {
             widget.title,
             style: TextStyle(
               color: ThemeColorUtil.titleTextColor(context),
-              fontSize: 28.w
+              fontSize: 15
             ),
           ),
           WidgetUtil.createWidget(widget.subtitle),
@@ -171,7 +171,7 @@ class ListItemTrailing extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       style: TextStyle(
-        fontSize: 28.w,
+        fontSize: 15,
         color: showPlaceholder() ? ThemeColorUtil.disabledColor(context) : ThemeColorUtil.subTitleTextColor(context)
       ),
     );

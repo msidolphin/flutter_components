@@ -15,13 +15,14 @@ class Ui {
 
   static Future showCustomConfirmDialog(BuildContext context, {
     @required Widget child,
-    String title = '提示',
+    String title = '',
     bool showCancelButton = true,
     String cancelText = '取消',
     String confirmText = '确认',
     Function onConfirm,
     Function onCancel,
-    List<FlatButton> actions = const []
+    List<FlatButton> actions = const [],
+    bool showCloseButton = false
   }) {
     assert(child != null);
     return Dialog.show(
@@ -31,6 +32,7 @@ class Ui {
         cancelText: cancelText,
         confirmText: confirmText,
         showCancel: showCancelButton,
+        showCloseButton: showCloseButton,
         child: child,
         actions: actions,
         onConfirm: onConfirm,
@@ -47,7 +49,8 @@ class Ui {
     String confirmText = '确认',
     Function onConfirm,
     Function onCancel,
-    List<FlatButton> actions = const []
+    List<FlatButton> actions = const [],
+    bool showCloseButton = false
   }) async {
     return Dialog.show(
       context: context,
@@ -56,6 +59,7 @@ class Ui {
         cancelText: cancelText,
         confirmText: confirmText,
         showCancel: showCancelButton,
+        showCloseButton: showCloseButton,
         actions: actions,
         child: Text(message,
           textAlign: TextAlign.center,
