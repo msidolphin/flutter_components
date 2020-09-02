@@ -15,6 +15,7 @@ class ListItem extends AbstractListItem {
   final String title;
   final Widget subtitle;
   final Widget trailing;
+  final Widget leading;
   final String icon;
   final double padding;
   final int maxLines;
@@ -30,10 +31,11 @@ class ListItem extends AbstractListItem {
     this.dense = true,
     @required this.title,
     this.icon,
+    this.leading,
     this.maxLines = 1,
     this.subtitle,
     this.trailing,
-    this.padding = 15,
+    this.padding = 12,
     this.align = CrossAxisAlignment.center,
     this.border = true,
     this.visible = true,
@@ -59,8 +61,8 @@ class _ListItemState extends State<ListItem> {
       child: $ListTile(
         dense: widget.dense,
         isLast: !widget.border ? true : widget.isLast,
-        leading: _renderLeading(),
-        contentPadding: EdgeInsets.only(left: 15, right: 0),
+        leading: widget.leading == null ? _renderLeading() : widget.leading,
+        contentPadding: EdgeInsets.only(left: 12, right: 0),
         title: Container(
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -102,7 +104,7 @@ class _ListItemState extends State<ListItem> {
     if (widget.icon == null) return null;
     bool isNetworkImage = widget.icon.startsWith("http");
     bool isAsset = !isNetworkImage;
-    return isAsset ? Image.asset(widget.icon, width: 20, height: 20) : CachedNetworkImage(imageUrl: widget.icon, width: 20, height: 20);
+    return isAsset ? Image.asset(widget.icon, width: 28, height: 28) : CachedNetworkImage(imageUrl: widget.icon, width: 28, height: 28);
   }
 
   Widget _renderTrailing (BuildContext context) {
@@ -114,13 +116,13 @@ class _ListItemState extends State<ListItem> {
     if (widget.onPressed != null) {
       if (widget.trailing == null) {
         return Container(
-          padding: EdgeInsets.only(right: 15),
+          padding: EdgeInsets.only(right: 12),
           alignment: Alignment.centerRight,
           child: arrow,
         );
       } else {
         return Container(
-            padding: EdgeInsets.only(left: 15, right: 15),
+            padding: EdgeInsets.only(left: 12, right: 12),
             constraints: BoxConstraints(
               maxWidth: 300
             ),
@@ -144,7 +146,7 @@ class _ListItemState extends State<ListItem> {
       } else {
         return Container(
           alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 15),
+          padding: EdgeInsets.only(right: 12),
           child: widget.trailing
         );
       }

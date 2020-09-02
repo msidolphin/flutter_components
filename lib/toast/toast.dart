@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/svg.dart';
 import '../i18n/i18n.dart';
 import '../utils/Gaps.dart';
 import '../utils/WidgetUtil.dart';
@@ -11,6 +12,8 @@ import 'bot_toast_init.dart';
 import 'key_board_safe_area.dart';
 import 'toast_navigator_observer.dart';
 import 'toast_widget/toast_widget.dart';
+
+import 'package:flutter_components/widgets.dart';
 
 void safeRun(void Function() callback) {
   SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -253,19 +256,19 @@ class Toast {
 
   static void success(String message) {
     _status(message,
-      icon: Image.asset('assets/images/toast/success.png', width: 36, height: 36,),
+      icon: SvgPicture.string(ToastSvgLib.SUCCESS, width: 36, height: 36,),
     );
   }
 
   static void warning(String message) {
     _status(message,
-      icon: Image.asset('assets/images/toast/warning.png', width: 36, height: 36,),
+      icon: SvgPicture.string(ToastSvgLib.WARNING, width: 36, height: 36,),
     );
   }
 
   static void failed(String message) {
     _status(message,
-      icon: Image.asset('assets/images/toast/failed.png', width: 36, height: 36,),
+      icon: SvgPicture.string(ToastSvgLib.ERROR, width: 36, height: 36,),
     );
   }
 
@@ -273,10 +276,10 @@ class Toast {
     WrapAnimation wrapAnimation,
     WrapAnimation wrapToastAnimation = textAnimation,
     Color backgroundColor = Colors.transparent,
-    Color contentColor = Colors.black54,
+    Color contentColor = const Color.fromRGBO(58, 58, 58, 0.8),
     BorderRadiusGeometry borderRadius =
     const BorderRadius.all(Radius.circular(8)),
-    TextStyle textStyle = const TextStyle(fontSize: 17, color: Colors.white),
+    TextStyle textStyle = const TextStyle(fontSize: 15, color: Colors.white),
     AlignmentGeometry align = Alignment.center,
     EdgeInsetsGeometry contentPadding =
     const EdgeInsets.only(left: 18, right: 18, top: 16, bottom: 16),
@@ -474,7 +477,7 @@ class Toast {
     bool allowClick = false,
     VoidCallback onClose,
     String text,
-    Color backgroundColor = Colors.white38,
+    Color backgroundColor = const Color.fromRGBO(0, 0, 0, 0),
   }) {
     return showCustomLoading(
         wrapAnimation: wrapAnimation,
