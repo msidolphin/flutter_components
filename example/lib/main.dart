@@ -3,6 +3,7 @@ import 'package:flutter_components/widgets.dart';
 import 'view/ListGroupView.dart';
 import 'view/ToastVIew.dart';
 import 'view/ColorView.dart';
+import 'view/DialogView.dart';
 import 'view/FormView.dart';
 import 'view/NoticeBarView.dart';
 import 'view/ResultView.dart';
@@ -68,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: ListGroupView() // This trailing comma makes auto-formatting nicer for build methods.
+      body: DialogView() // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
