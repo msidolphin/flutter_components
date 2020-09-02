@@ -60,7 +60,7 @@ class _StringsZhCn extends _StringsI18n {
 
   @override
   String getToastLoadingText() {
-    return '加载中';
+    return '加载中...';
   }
 
   @override
