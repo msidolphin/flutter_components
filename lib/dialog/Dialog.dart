@@ -7,7 +7,9 @@ class Dialog {
   static Future<T> show<T>({
     @required BuildContext context,
     bool barrierDismissible = true,
-    @required Widget child
+    @required Widget child,
+    DialogTransaction transaction = DialogTransaction.slide,
+    Duration duration = const Duration(milliseconds: 550),
   }) {
     final ThemeData theme = Theme.of(context, shadowThemeOnly: true);
     FocusScope.of(context).unfocus();
@@ -30,7 +32,7 @@ class Dialog {
       barrierDismissible: barrierDismissible,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: Colors.black45,
-      transitionDuration: const Duration(milliseconds: 550),
+      transitionDuration: duration,
       transitionBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
@@ -39,7 +41,7 @@ class Dialog {
               parent: animation,
               curve: Curves.easeOut,
             ),
-            child: SlideTransition(
+            child: transaction == DialogTransaction.slide ? SlideTransition(
               position: Tween<Offset>(
                   begin: const Offset(0.0, 0.3),
                   end: Offset.zero
@@ -49,7 +51,15 @@ class Dialog {
                     .easeOutBack : ElasticOutCurve(0.85),
               )),
               child: child,
-            ),
+            ) : transaction == DialogTransaction.scale ?
+              Transform.scale(
+                scale: animation.value,
+                child: Opacity(
+                  opacity: animation.value,
+                  child: child,
+                ),
+              )
+              : child,
           ),
         );
       }
@@ -60,4 +70,9 @@ class Dialog {
     Navigator.of(context).pop();
   }
 
+}
+
+enum DialogTransaction {
+  slide,
+  scale
 }

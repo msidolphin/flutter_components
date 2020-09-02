@@ -22,11 +22,15 @@ class Ui {
     Function onConfirm,
     Function onCancel,
     List<FlatButton> actions = const [],
-    bool showCloseButton = false
+    bool showCloseButton = false,
+    DialogTransaction transaction = DialogTransaction.slide,
+    Duration duration = const Duration(milliseconds: 550)
   }) {
     assert(child != null);
     return Dialog.show(
       context: context,
+      transaction: transaction,
+      duration: duration,
       child: ConfirmDialog(
         title: title,
         cancelText: cancelText,
@@ -50,10 +54,14 @@ class Ui {
     Function onConfirm,
     Function onCancel,
     List<FlatButton> actions = const [],
-    bool showCloseButton = false
+    bool showCloseButton = false,
+    DialogTransaction transaction = DialogTransaction.slide,
+    Duration duration = const Duration(milliseconds: 550)
   }) async {
     return Dialog.show(
       context: context,
+      transaction: transaction,
+      duration: duration,
       child: ConfirmDialog(
         title: title,
         cancelText: cancelText,
@@ -195,10 +203,14 @@ class Ui {
   }
 
   static Future showDialog(BuildContext context, {
-    @required Widget child
+    @required Widget child,
+    DialogTransaction transaction = DialogTransaction.slide,
+    Duration duration = const Duration(milliseconds: 550)
   }) {
     return Dialog.show(
       context: context,
+      transaction: transaction,
+      duration: duration,
       child: child,
     );
   }

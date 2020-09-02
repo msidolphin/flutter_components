@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_components/dialog/Dialog.dart';
 import 'package:flutter_components/toast/toast.dart';
 import 'package:flutter_components/widgets.dart';
 
@@ -166,7 +168,25 @@ class DialogView extends StatelessWidget {
                   )
               );
             },
-          )
+          ),
+          TitleWidget(title: '自定义对话框'),
+          Button('打开',
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            onPressed: () {
+              Ui.showDialog(context,
+                child: Center(
+                  child: CachedNetworkImage(
+                    imageUrl: 'https://gdjcywebdata001.oss-cn-shenzhen.aliyuncs.com/e9815fe14ade42d18a33d0a10833fd5d.png',
+                    width: 300,
+                    height: 225,
+                  ),
+                ),
+                transaction: DialogTransaction.scale,
+                duration: Duration(milliseconds: 200)
+              );
+            },
+          ),
+          SizedBox(height: 15,)
         ],
       ),
     );
