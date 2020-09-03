@@ -150,13 +150,13 @@ class DateTimeFormatter {
       int value, String format, DateTimePickerLocale locale) {
     if (format.contains('yyyy')) {
       // yyyy: the digit count of year is 4, e.g. 2019
-      return format.replaceAll('yyyy', value.toString());
+      return format.replaceAll('yyyy', value.toString()) + "年";
     } else if (format.contains('yy')) {
       // yy: the digit count of year is 2, e.g. 19
       return format.replaceAll('yy',
-          value.toString().substring(max(0, value.toString().length - 2)));
+          value.toString().substring(max(0, value.toString().length - 2)) +"年");
     }
-    return value.toString();
+    return value.toString() + "年";
   }
 
   /// format month text
@@ -171,13 +171,13 @@ class DateTimeFormatter {
       String month = months[value - 1];
       return format.replaceAll('MMM', month.substring(0, min(3, month.length)));
     }
-    return _formatNumber(value, format, 'M');
+    return _formatNumber(value, format, 'M', isPad: false) + "月";
   }
 
   /// format day text
   static String _formatDay(
       int value, String format, DateTimePickerLocale locale) {
-    return _formatNumber(value, format, 'd');
+    return _formatNumber(value, format, 'd', isPad: false) + "日";
   }
 
   /// format week text
@@ -196,25 +196,25 @@ class DateTimeFormatter {
   /// format hour text
   static String _formatHour(
       int value, String format, DateTimePickerLocale locale) {
-    return _formatNumber(value, format, 'H');
+    return _formatNumber(value, format, 'H') + "时";
   }
 
   /// format minute text
   static String _formatMinute(
       int value, String format, DateTimePickerLocale locale) {
-    return _formatNumber(value, format, 'm');
+    return _formatNumber(value, format, 'm') + "分";
   }
 
   /// format second text
   static String _formatSecond(
       int value, String format, DateTimePickerLocale locale) {
-    return _formatNumber(value, format, 's');
+    return _formatNumber(value, format, 's') + "秒";
   }
 
   /// format number, if the digit count is 2, will pad zero on the left
-  static String _formatNumber(int value, String format, String unit) {
+  static String _formatNumber(int value, String format, String unit,{bool isPad = true}) {
     if (format.contains('$unit$unit')) {
-      return format.replaceAll('$unit$unit', value.toString().padLeft(2, '0'));
+      return format.replaceAll('$unit$unit', value.toString().padLeft(2, isPad ?  "0" : ''));
     } else if (format.contains('$unit')) {
       return format.replaceAll('$unit', value.toString());
     }

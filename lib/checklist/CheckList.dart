@@ -13,22 +13,22 @@ typedef VoidCallback = Function();
 
 class CheckList<T extends ICheckListItem> extends StatefulWidget {
   final List<String> value;
-  final List<T> dataSource;
+  final List<T> options;
   final Widget leading;
-  final Widget selected;
-  final Widget unSelected;
+  final Widget selectedIcon;
+  final Widget unSelectedIcon;
   final bool multiple;
   final bool wrapBordered;
   final int limit;
   final ValueChanged onChanged;
   final VoidCallback onExceed;
 
-  CheckList(this.dataSource, this.value, {
+  CheckList({this.options, this.value,
     Key key,
     this.multiple = true,
     this.leading,
-    this.selected,
-    this.unSelected,
+    this.selectedIcon,
+    this.unSelectedIcon,
     this.limit = 0,
     this.onChanged,
     this.onExceed,
@@ -72,7 +72,7 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-              children: initChildren(widget.dataSource)
+              children: initChildren(widget.options)
           ),
       ),
     );
@@ -86,7 +86,7 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
   }
   Widget getItemChild (ICheckListItem item, index) {
     return RawFieldItem(
-        isLast: index == widget.dataSource.length -1 ? true : false,
+        isLast: index == widget.options.length -1 ? true : false,
         leading: widget.leading,
         onPressed: () {
           setState(() {
@@ -106,7 +106,7 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
             if (widget.onChanged != null) {
               List<String> currentText = [];
               int index = -1;
-              for(ICheckListItem it in widget.dataSource) {
+              for(ICheckListItem it in widget.options) {
                 index = currentValue.indexOf(it.getId());
                 if (index != -1) currentText.add(it.getLabel());
               }
@@ -117,7 +117,7 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            renderLabel(item.getLabel(), 100, context),
+            renderLabel(item.getLabel(), null, context),
             renderIcon(item.getId()),
           ],
         )
@@ -126,15 +126,15 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
   Widget renderIcon(value) {
     if (widget.multiple) {
       if (currentValue.indexOf(value) != -1) {
-        return widget.selected != null ? widget.selected : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
+        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
       } else {
-        return widget.unSelected != null ? widget.unSelected : Gaps.empty;
+        return widget.unSelectedIcon != null ? widget.unSelectedIcon : Gaps.empty;
       }
     } else {
       if (currentValue[0] == value) {
-        return widget.selected != null ? widget.selected : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
+        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
       } else {
-        return widget.unSelected != null ? widget.unSelected : Gaps.empty;
+        return widget.unSelectedIcon != null ? widget.unSelectedIcon : Gaps.empty;
       }
     }
   }

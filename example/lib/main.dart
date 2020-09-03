@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_components/widgets.dart';
 import 'view/ListGroupView.dart';
+import 'view/TimePickerView.dart';
 import 'view/ToastVIew.dart';
 import 'view/ColorView.dart';
 import 'view/DialogView.dart';
 import 'view/FormView.dart';
 import 'view/NoticeBarView.dart';
 import 'view/ResultView.dart';
+import 'view/ModalBottomView.dart';
+import 'view/SlidableView.dart';
+import 'view/SegmentView.dart';
 
 void main() => runApp(MyApp());
 
@@ -69,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: DialogView() // This trailing comma makes auto-formatting nicer for build methods.
+      body: SegmentView() // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

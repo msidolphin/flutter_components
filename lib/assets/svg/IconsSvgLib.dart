@@ -15,4 +15,35 @@ class IconsSvgLib {
       </g>
   </svg>
   ''';
+
+
+  static const String CLOSE = '''
+  <?xml version="1.0" encoding="UTF-8"?>
+  <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+      <title>图标/32px/弹窗关闭</title>
+      <desc>Created with Sketch.</desc>
+      <g id="图标/32px/弹窗关闭" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Toast_closed" transform="translate(4.000000, 4.000000)" fill="#CCCCCC" fill-rule="nonzero">
+              <polygon id="路径" points="22.4999867 0 24 1.53190625 13.4999678 12.2553125 23.4999956 22.4680938 21.9999823 24 11.9999848 13.7872188 1.99998736 24 0.500004423 22.4680938 10.4999412 12.2553125 0 1.53190625 1.50001327 1.77635684e-15 11.9999848 10.7234063"></polygon>
+          </g>
+      </g>
+  </svg>
+  ''';
+
+  static const String EDIT = '''
+  <?xml version="1.0" encoding="UTF-8"?>
+  <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+      <title>图标/32px/编辑</title>
+      <desc>Created with Sketch.</desc>
+      <g id="图标/32px/编辑" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="edit-square" fill-rule="nonzero">
+              <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="32" height="32"></rect>
+              <path d="M28.25,16 L26.5,16 C26.3625,16 26.25,16.1125 26.25,16.25 L26.25,26.25 L5.75,26.25 L5.75,5.75 L15.75,5.75 C15.8875,5.75 16,5.6375 16,5.5 L16,3.75 C16,3.6125 15.8875,3.5 15.75,3.5 L4.5,3.5 C3.946875,3.5 3.5,3.946875 3.5,4.5 L3.5,27.5 C3.5,28.053125 3.946875,28.5 4.5,28.5 L27.5,28.5 C28.053125,28.5 28.5,28.053125 28.5,27.5 L28.5,16.25 C28.5,16.1125 28.3875,16 28.25,16 Z" id="路径" fill="#999999"></path>
+              <path d="M11.121875,16.715625 L11.0624678,20.43125 C11.059375,20.709375 11.284375,20.9375 11.5625,20.9375 L11.575,20.9375 L15.2625,20.846875 C15.325,20.84375 15.3875,20.81875 15.43125,20.775 L28.428125,7.80625 C28.525,7.709375 28.525,7.55 28.428125,7.453125 L24.54375,3.571875 C24.49375,3.521875 24.43125,3.5 24.365625,3.5 C24.3,3.5 24.2375,3.525 24.1875,3.571875 L11.19375,16.540625 C11.15,16.5875 11.121875,16.65 11.121875,16.715625 Z M13.10625,17.453125 L24.365625,6.21875 L25.778125,7.628125 L14.5125,18.86875 L13.084375,18.903125 L13.10625,17.453125 L13.10625,17.453125 Z" id="形状" fill="#999999"></path>
+          </g>
+      </g>
+  </svg>
+  ''';
 }
