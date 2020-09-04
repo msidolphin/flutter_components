@@ -57,21 +57,6 @@ class _TimePickerView extends State<TimePickerView> {
                 });
               },);
           },),
-        Button("底部弹窗",
-        onPressed: () {
-//          Platform.isAndroid?
-          showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context, scrollController) => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(height: 100, color: Colors.red,),
-                Container(height: 300, color: Colors.green,),
-              ],
-            ),
-          );
-        },)
-
       ],
     );
   }

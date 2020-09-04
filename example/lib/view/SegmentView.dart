@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_components/utils/ThemeColorUtil.dart';
+import 'package:flutter_components/widgets.dart';
 
 import '../widget/TitleWidget.dart';
 
@@ -20,8 +21,8 @@ class _SegmentView  extends State<SegmentView> {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        TitleWidget(title: "CupertinoSegmentedControl 分段器",),
-        CupertinoSegmentedControl(
+        TitleWidget(title: "SegmentedControl 分段器",),
+        SegmentedControl(
           groupValue: segmentedControlValue1,
           children: {
             1: Text("全部"),
@@ -35,9 +36,7 @@ class _SegmentView  extends State<SegmentView> {
           },
         ),
         SizedBox(height: 12,),
-        CupertinoSegmentedControl(
-          selectedColor: ThemeColorUtil.primaryColor(context),
-          borderColor: ThemeColorUtil.primaryColor(context),
+        SegmentedControl(
           groupValue: segmentedControlValue2,
           children: {
             1: Text("热线",),
@@ -52,9 +51,7 @@ class _SegmentView  extends State<SegmentView> {
           },
         ),
         SizedBox(height: 12,),
-        CupertinoSegmentedControl(
-          selectedColor: ThemeColorUtil.primaryColor(context),
-          borderColor: ThemeColorUtil.primaryColor(context),
+        SegmentedControl(
           groupValue: segmentedControlValue3,
           children: {
             1: Text("热线",),

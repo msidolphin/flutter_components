@@ -30,5 +30,8 @@ export 'checklist/RadioList.dart';
 export 'checklist/ICheckListItem.dart';
 export 'checklist/CheckList.dart';
 export 'package:flutter_slidable/flutter_slidable.dart';
+export 'SegmentControl.dart';
+export 'tabs/VerticalTabs.dart';
+export 'tabs/VerticalTabIndicator.dart';
 
 

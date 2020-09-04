@@ -11,6 +11,7 @@ import 'view/ResultView.dart';
 import 'view/ModalBottomView.dart';
 import 'view/SlidableView.dart';
 import 'view/SegmentView.dart';
+import 'view/VerticalTabsView.dart';
 
 void main() => runApp(MyApp());
 
@@ -73,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: SegmentView() // This trailing comma makes auto-formatting nicer for build methods.
+      body: VerticalTabsView() // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
