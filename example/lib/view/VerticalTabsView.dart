@@ -501,6 +501,18 @@ class _VerticalTabsViewState extends State<VerticalTabsView> {
     },
     {
       "name": "酒水饮料"
+    },
+    {
+      "name": "家具家装"
+    },
+    {
+      "name": "家具厨具"
+    },
+    {
+      "name": "箱包手袋"
+    },
+    {
+      "name": "钟表珠宝"
     }
   ];
 
