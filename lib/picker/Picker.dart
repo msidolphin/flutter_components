@@ -10,17 +10,18 @@ import 'package:uuid/uuid.dart';
 import '../utils/ThemeColorUtil.dart';
 import '../utils/Ui.dart';
 import 'PickerRoute.dart';
+import 'layout/PickerTitile.dart';
 import 'model/PickerColumn.dart';
 import 'model/PickerItem.dart';
 
-typedef ValueChanged(List<String> value, List<String> text);
+typedef OnPickerValueChanged(List<String> value, List<String> text);
 
 class Picker {
 
   static void showAreaPicker(BuildContext context, {
     List<String> value,
     int level = 3,
-    ValueChanged onConfirm,
+    OnPickerValueChanged onConfirm,
     PickerTheme theme = PickerTheme.Default,
     FlatLocale locale = FlatLocale.zh_cn,
     String title = ""
@@ -44,7 +45,7 @@ class Picker {
     String root = '0',
     String title = "",
     List<String> value,
-    ValueChanged onConfirm,
+    OnPickerValueChanged onConfirm,
     PickerTheme theme = PickerTheme.Default,
     FlatLocale locale = FlatLocale.zh_cn
   }) {
@@ -52,37 +53,58 @@ class Picker {
     assert(dataSource != null);
     List<String> values = [];
     List<String> texts = [];
-    PickerRoute route = PickerRoute(
-        onConfirm: () {
-          if (onConfirm != null) {
-            onConfirm(values, texts);
-          }
-          Navigator.pop(context);
-        },
-        onCancel: () {
-          Navigator.pop(context);
-        },
-        child: _create(
-            value: value,
-            dataSource: dataSource,
-            level: level,
-            root: root,
-            onChanged: (value, text) {
-              values = value;
-              texts = text;
-            }
-        ),
-        title: title
-    );
     FocusScope.of(context).unfocus();
-    Navigator.push(context, route);
+    double height = theme.pickerHeight;
+    if (theme.title != null || theme.showTitle) {
+      height += theme.titleHeight;
+    }
+    final pickerWidget = _create(
+        value: value,
+        dataSource: dataSource,
+        level: level,
+        root: root,
+        onChanged: (value, text) {
+          values = value;
+          texts = text;
+        }
+    );
+    final pickerHeader = PickerTitle(
+      locale: locale,
+      pickerTheme: theme,
+      onConfirm: () {
+        if (onConfirm != null) {
+          onConfirm(values, texts);
+        }
+        Navigator.pop(context);
+      },
+      onCancel: () {
+        Navigator.pop(context);
+      },
+      title: title,
+    );
+    Ui.showModalBottomSheet(context, builder: (context, controller) {
+      return Material(
+        child: Container(
+          height: height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              pickerHeader,
+              Expanded(
+                  child: pickerWidget
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   static Widget _create({
     List<String> value,
     Map<String, dynamic> dataSource,
     int level,
-    ValueChanged onChanged,
+    OnPickerValueChanged onChanged,
     String root = '0'
   }) {
     return _PickerWidget(
@@ -105,7 +127,7 @@ class _PickerWidget extends StatefulWidget {
 
   final int level;
 
-  final ValueChanged onChanged;
+  final OnPickerValueChanged onChanged;
 
   final String root; // 根节点id
 
@@ -141,7 +163,7 @@ class _PickerWidgetState extends State<_PickerWidget> {
 
   final int level;
 
-  final ValueChanged onChanged;
+  final OnPickerValueChanged onChanged;
 
   final String root; // 根节点id
 

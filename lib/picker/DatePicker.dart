@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_components/utils/Gaps.dart';
+import 'package:flutter_components/utils/Ui.dart';
 import '../picker/widget/MonthPicker.dart';
 
 import 'DatePickerTheme.dart';
@@ -74,25 +76,92 @@ class DatePicker {
     // Set value of date format
     dateFormat = DateTimeFormatter.generateDateFormat(dateFormat, pickerMode);
     FocusScope.of(context).unfocus();
-    Navigator.push(
-      context,
-      new _DatePickerRoute(
-        minDateTime: minDateTime,
-        maxDateTime: maxDateTime,
-        initialDateTime: initialDateTime,
-        dateFormat: dateFormat,
-        locale: locale,
-        pickerMode: pickerMode,
-        pickerTheme: pickerTheme,
-        onCancel: onCancel,
-        onChange: onChange,
-        onConfirm: onConfirm,
-        theme: Theme.of(context, shadowThemeOnly: true),
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        minuteDivider: minuteDivider,
-      ),
-    ).whenComplete(onClose ?? () => {});
+
+    final route = new _DatePickerRoute(
+      minDateTime: minDateTime,
+      maxDateTime: maxDateTime,
+      initialDateTime: initialDateTime,
+      dateFormat: dateFormat,
+      locale: locale,
+      pickerMode: pickerMode,
+      pickerTheme: pickerTheme,
+      onCancel: onCancel,
+      onChange: onChange,
+      onConfirm: onConfirm,
+      theme: Theme.of(context, shadowThemeOnly: true),
+      barrierLabel:
+      MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      minuteDivider: minuteDivider,
+    );
+
+    Widget pickerWidget = Gaps.empty;
+    switch (route.pickerMode) {
+      case DateTimePickerMode.date:
+        pickerWidget = DatePickerWidget(
+          minDateTime: route.minDateTime,
+          maxDateTime: route.maxDateTime,
+          initialDateTime: route.initialDateTime,
+          dateFormat: route.dateFormat,
+          locale: route.locale,
+          pickerTheme: route.pickerTheme,
+          onCancel: route.onCancel,
+          onChange: route.onChange,
+          onConfirm: route.onConfirm,
+        );
+        break;
+      case DateTimePickerMode.month:
+        pickerWidget = MonthPickerWidget(
+          minDateTime: route.minDateTime,
+          maxDateTime: route.maxDateTime,
+          initialDateTime: route.initialDateTime,
+          dateFormat: route.dateFormat,
+          locale: route.locale,
+          pickerTheme: route.pickerTheme,
+          onCancel: route.onCancel,
+          onChange: route.onChange,
+          onConfirm: route.onConfirm,
+        );
+        break;
+      case DateTimePickerMode.time:
+        pickerWidget = TimePickerWidget(
+          minDateTime: route.minDateTime,
+          maxDateTime: route.maxDateTime,
+          initDateTime: route.initialDateTime,
+          dateFormat: route.dateFormat,
+          locale: route.locale,
+          pickerTheme: route.pickerTheme,
+          onCancel: route.onCancel,
+          onChange: route.onChange,
+          onConfirm: route.onConfirm,
+          minuteDivider: route.minuteDivider,
+        );
+        break;
+      case DateTimePickerMode.datetime:
+        pickerWidget = DateTimePickerWidget(
+          minDateTime: route.minDateTime,
+          maxDateTime: route.maxDateTime,
+          initialDateTime: route.initialDateTime,
+          dateFormat: route.dateFormat,
+          locale: route.locale,
+          pickerTheme: route.pickerTheme,
+          onCancel: route.onCancel,
+          onChange: route.onChange,
+          onConfirm: route.onConfirm,
+        );
+        break;
+    }
+    double height = pickerTheme.pickerHeight;
+    if (pickerTheme.title != null || pickerTheme.showTitle) {
+      height += pickerTheme.titleHeight;
+    }
+    Ui.showModalBottomSheet(context, builder: (ctx, controller) {
+      return Material(
+        child: Container(
+          height: height,
+          child: pickerWidget,
+        ),
+      );
+    });
   }
 }
 

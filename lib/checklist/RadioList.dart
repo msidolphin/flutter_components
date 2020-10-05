@@ -43,7 +43,7 @@ class _RadioList extends State<RadioList>{
         unSelectedIcon: widget.unSelectedIcon,
         multiple:false,
         onChanged: (value,text) {
-          widget?.onChanged(value[0],text[0]);
+          widget?.onChanged?.call(value[0],text[0]);
         },
     );
   }

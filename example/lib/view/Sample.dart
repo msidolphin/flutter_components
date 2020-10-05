@@ -5,10 +5,12 @@ import 'package:flutter_components/list/ListItem.dart';
 import 'package:flutter_components_example/view/ButtonView.dart';
 import 'package:flutter_components_example/view/ColorView.dart';
 import 'package:flutter_components_example/view/DialogView.dart';
+import 'package:flutter_components_example/view/ExpandableTextView.dart';
 import 'package:flutter_components_example/view/FormView.dart';
 import 'package:flutter_components_example/view/ListGroupView.dart';
 import 'package:flutter_components_example/view/ModalBottomView.dart';
 import 'package:flutter_components_example/view/NoticeBarView.dart';
+import 'package:flutter_components_example/view/PickerView.dart';
 import 'package:flutter_components_example/view/ResultView.dart';
 import 'package:flutter_components_example/view/SlidableView.dart';
 import 'package:flutter_components_example/view/TimePickerView.dart';
@@ -30,7 +32,9 @@ class Sample extends StatelessWidget {
                 expandedHeight: 80.0,
                 pinned: true,
                 backgroundColor: Colors.white,
+                elevation: 0,
                 flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: false,
                   titlePadding: EdgeInsets.only(left: 15, bottom: 12),
                   title: Text('示例', style: TextStyle(
                     fontSize: 18,
@@ -168,6 +172,26 @@ class Sample extends StatelessWidget {
                       ),
                       onPressed: () {
                         to(context, SegmentView());
+                      },
+                    ),
+                    ListItem(title: '可展开文本',
+                      padding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.red,
+                        icon: Icons.text_format,
+                      ),
+                      onPressed: () {
+                        to(context, ExpandableTextView());
+                      },
+                    ),
+                    ListItem(title: '选择器',
+                      padding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.green,
+                        icon: Icons.format_line_spacing,
+                      ),
+                      onPressed: () {
+                        to(context, PickerView());
                       },
                     ),
                   ])
