@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utils/ColorUtil.dart';
 import '../checklist/ICheckListItem.dart';
-import '../utils/ViewportUtil.dart';
 
 typedef ValueChanged(String value, String text);
 typedef VoidCallback = Function();
@@ -78,10 +77,10 @@ class _MutexPicker extends State<MutexPicker> {
       children: <Widget>[
         Expanded(
           child: Container(
-            padding: EdgeInsets.all(15.w),
+            padding: EdgeInsets.all(7.5),
             child: Wrap(
-              spacing: 8.w,
-              runSpacing: 8.w,
+              spacing: 4,
+              runSpacing: 4,
               children: initContChildren(widget.dataSource)
             ),
           ),
@@ -101,11 +100,11 @@ class _MutexPicker extends State<MutexPicker> {
     int dIndex = disabledValue.indexOf(item.getId());
     if (dIndex != -1 && item.getId() != currentValue) {
       return Container(
-        width: 174.w,
-        height: 88.w,
+        width: 87,
+        height: 44,
         decoration: BoxDecoration(
           color: ColorUtil.web("#fff"),
-          borderRadius: BorderRadius.all(Radius.circular(4.w)),
+          borderRadius: BorderRadius.all(Radius.circular(2)),
         ),
         child: Stack(
           children: <Widget>[
@@ -120,11 +119,11 @@ class _MutexPicker extends State<MutexPicker> {
               top: 0,
               bottom: 0,
               child: Container(
-                  width: (MediaQuery.of(context).size.width - (30.w + 24.w)) / 4,
-                  height: 88.w,
+                  width: (MediaQuery.of(context).size.width - (15 + 12)) / 4,
+                  height: 44,
                   decoration: BoxDecoration(
                     color: ColorUtil.web("#313131",0.85),
-                    borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                    borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Center(
                     child: Text('已设定',style: TextStyle(color: Colors.white),),
@@ -147,8 +146,8 @@ class _MutexPicker extends State<MutexPicker> {
             });
           },
           child: Container(
-            width: (MediaQuery.of(context).size.width - (30.w + 24.w)) / 4,
-            height: 88.w,
+            width: (MediaQuery.of(context).size.width - (15 + 12)) / 4,
+            height: 44,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),

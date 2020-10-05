@@ -5,7 +5,6 @@ import '../utils/ColorUtil.dart';
 import '../utils/Gaps.dart';
 
 import '../utils/Ui.dart';
-import '../utils/ViewportUtil.dart';
 import 'BackButton.dart';
 
 // 默认标题栏高度为44 TabBar高度为46 所以如果导航栏底部有TabBar的话高度应该设置为90
@@ -135,7 +134,7 @@ class NavigatorBarState extends State<NavigatorBar>  {
               Text(
                 this.title,
                 style: TextStyle(
-                  fontSize: 36.w,
+                  fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),

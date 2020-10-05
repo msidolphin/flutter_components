@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './utils/ThemeColorUtil.dart';
 import './utils/Ui.dart';
-import './utils/ViewportUtil.dart';
 
 import 'utils/Gaps.dart';
 
@@ -92,7 +91,7 @@ class SimpleTextFieldState extends State<SimpleTextField> with WidgetsBindingObs
           autofocus: widget.autoFocus,
           controller: controller,
           style: TextStyle(
-              fontSize: 34.w
+              fontSize: 17
           ),
           textInputAction: TextInputAction.done,
           keyboardType: widget.keyboardType,

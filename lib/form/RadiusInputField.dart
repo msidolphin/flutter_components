@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/ColorUtil.dart';
-import '../utils/ViewportUtil.dart';
 import 'enum/FormInputType.dart';
 import 'formatter/NumberInputFormatter.dart';
 typedef ValueDisabled();
@@ -100,7 +99,7 @@ class _RadiusInputField extends State<RadiusInputField>
     return Container(
       height: widget.height,
       width: widget.width,
-      padding: EdgeInsets.only(left:20.w,right: 20.w),
+      padding: EdgeInsets.only(left:10,right:10),
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './utils/ThemeColorUtil.dart';
-import './utils/ViewportUtil.dart';
 
 typedef VoidOnTap();
 class ActionButtonWidget extends StatelessWidget {
@@ -25,8 +24,8 @@ class ActionButtonWidget extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                color: ThemeColorUtil.primaryTextColor(context),
-                fontSize: 30.w
+              color: ThemeColorUtil.primaryTextColor(context),
+              fontSize: 15
             ),
           )
       ),

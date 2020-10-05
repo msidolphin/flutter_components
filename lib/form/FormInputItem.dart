@@ -6,7 +6,6 @@ import '../form/enum/FormInputType.dart';
 import '../list/AbstractListItem.dart';
 import '../utils/StringUtil.dart';
 import '../utils/Ui.dart';
-import '../utils/ViewportUtil.dart';
 import '../utils/WidgetUtil.dart';
 
 import '../utils/ThemeColorUtil.dart';

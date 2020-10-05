@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../utils/StringUtil.dart';
 import '../utils/ThemeColorUtil.dart';
-import '../utils/ViewportUtil.dart';
 import '../utils/WidgetUtil.dart';
 
 mixin FieldItemMixin {

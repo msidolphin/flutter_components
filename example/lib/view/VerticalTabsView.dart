@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart' hide TabBarIndicatorSize;
 import 'package:flutter/material.dart' hide TabBarIndicatorSize;
 import 'package:flutter_components/utils/Gaps.dart';
 import 'package:flutter_components/widgets.dart';
+import 'package:flutter_components_example/widget/TitleWidget.dart';
 
 class VerticalTabsView extends StatefulWidget {
 
@@ -518,85 +519,97 @@ class _VerticalTabsViewState extends State<VerticalTabsView> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: data.length,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.zero,
-            width: 100,
-            color: Colors.transparent,
-            child: VerticalTabBar(
-              tabs: data.map((t) => Tab(text: t['name'],)).toList(),
-              isScrollable: true,
-              indicatorWeight: 4,
-              labelColor: Color(0xffe93b3d),
-              indicatorColor: Color(0xffe93b3d),
-              unselectedLabelColor: Color(0xff333333),
-              labelStyle: TextStyle(
-                fontSize: 14
-              ),
-              unselectedLabelStyle: TextStyle(
-                color: Color(0xff333333),
-                fontSize: 14
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleWidget(
+            title: "VerticalTabBar 垂直TabBar",
+          ),
+          Expanded(
+            child: DefaultTabController(
+              length: data.length,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.zero,
+                    width: 100,
+                    color: Colors.transparent,
+                    child: VerticalTabBar(
+                      tabs: data.map((t) => Tab(text: t['name'],)).toList(),
+                      isScrollable: true,
+                      indicatorWeight: 4,
+                      labelColor: Color(0xffe93b3d),
+                      indicatorColor: Color(0xffe93b3d),
+                      unselectedLabelColor: Color(0xff333333),
+                      labelStyle: TextStyle(
+                        fontSize: 14
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                        color: Color(0xff333333),
+                        fontSize: 14
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      child: VerticalTabBarView(
+                        children: data.map(
+                          (v) => v['children'] != null ? Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.zero,
+                              child: ListView(
+                                padding: EdgeInsets.all(14),
+                                children: List.of(v['children']).map((cate) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(cate['name'], style: TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0xff333333),
+                                        fontWeight: FontWeight.w500
+                                      ),),
+                                      SizedBox(height: 12,),
+                                      cate['children'] != null ? Container(
+                                        width: MediaQuery.of(context).size.width - 100 - 28,
+                                        child: Wrap(
+                                          children: List.of(cate['children']).map((item) {
+                                            return Column(
+                                              children: <Widget>[
+                                                CachedNetworkImage(imageUrl: item['image'], width: 70, height: 70, fit: BoxFit.cover,),
+                                                SizedBox(height: 4,),
+                                                Container(
+                                                  width: 70,
+                                                  child: Text(item['name'], style: TextStyle(
+                                                      fontSize: 12
+                                                  ), overflow: TextOverflow.ellipsis,),
+                                                  alignment: Alignment.center,
+                                                )
+                                              ],
+                                            );
+                                          }).toList(),
+//                                    spacing: 3,
+                                          runSpacing: 20,
+                                          spacing: (MediaQuery.of(context).size.width - 100 - 28 - 210) / 2,
+                                          alignment: WrapAlignment.start,
+                                        ),
+                                      ) : Gaps.empty,
+                                      SizedBox(height: 40,)
+                                    ],
+                                  );
+                                }).toList() ,
+                              ),
+                            ),
+                          ) : Container(
+                            color: Colors.white,
+                          )
+                        ).toList(),
+                      ))
+                ],
               ),
             ),
           ),
-          Expanded(
-              child: VerticalTabBarView(
-                children: data.map(
-                  (v) => v['children'] != null ? Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: EdgeInsets.zero,
-                      child: ListView(
-                        padding: EdgeInsets.all(14),
-                        children: List.of(v['children']).map((cate) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(cate['name'], style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xff333333),
-                                fontWeight: FontWeight.w500
-                              ),),
-                              SizedBox(height: 12,),
-                              cate['children'] != null ? Container(
-                                width: MediaQuery.of(context).size.width - 100 - 28,
-                                child: Wrap(
-                                  children: List.of(cate['children']).map((item) {
-                                    return Column(
-                                      children: <Widget>[
-                                        CachedNetworkImage(imageUrl: item['image'], width: 70, height: 70, fit: BoxFit.cover,),
-                                        SizedBox(height: 4,),
-                                        Container(
-                                          width: 70,
-                                          child: Text(item['name'], style: TextStyle(
-                                              fontSize: 12
-                                          ), overflow: TextOverflow.ellipsis,),
-                                          alignment: Alignment.center,
-                                        )
-                                      ],
-                                    );
-                                  }).toList(),
-//                                    spacing: 3,
-                                  runSpacing: 20,
-                                  spacing: (MediaQuery.of(context).size.width - 100 - 28 - 210) / 2,
-                                  alignment: WrapAlignment.start,
-                                ),
-                              ) : Gaps.empty,
-                              SizedBox(height: 40,)
-                            ],
-                          );
-                        }).toList() ,
-                      ),
-                    ),
-                  ) : Container(
-                    color: Colors.white,
-                  )
-                ).toList(),
-              ))
         ],
       ),
     );

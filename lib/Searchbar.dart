@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import './utils/ThemeColorUtil.dart';
-import './utils/ViewportUtil.dart';
 
 class SearchBar extends StatefulWidget {
 
@@ -48,19 +47,18 @@ class _SearchBarState extends State<SearchBar> with WidgetsBindingObserver {
 
     @override
   Widget build(BuildContext context) {
-    ViewportUtil.init(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         color: ThemeColorUtil.backGroundColor(context),
-        borderRadius: BorderRadius.circular(36.w)
+        borderRadius: BorderRadius.circular(18)
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.search, size: 40.w, color: Color(0xffbbbbbb),),
-          SizedBox(width: 18.w,),
+          Icon(Icons.search, size: 20, color: Color(0xffbbbbbb),),
+          SizedBox(width: 9,),
           Expanded(
             child: TextField(
               controller: controller,

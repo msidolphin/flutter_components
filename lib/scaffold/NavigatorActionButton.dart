@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/ViewportUtil.dart';
-
 typedef VoidOnTap();
 class NavigatorActionButton extends StatelessWidget {
 
@@ -26,7 +24,7 @@ class NavigatorActionButton extends StatelessWidget {
             text,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 30.w
+                fontSize: 15
             ),
           )
       ),
