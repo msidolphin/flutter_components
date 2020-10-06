@@ -19,9 +19,8 @@ class PickerViewState extends State<PickerView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Material(
-      color: Colors.white,
-      child: ListView(
+    return Scaffold(
+      body: ListView(
         children: [
           TitleWidget(title: 'Picker 选择器',),
           Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -45,10 +44,56 @@ class PickerViewState extends State<PickerView> {
                 );
               },
             ),
+          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: FlatButton(
+              child: Text('【cupertino风格】当前已选：$text'),
+              onPressed: () {
+                Picker.show(context, dataSource: {
+                  "0": {
+                    "1": "苹果🍎",
+                    "2": "梨子🍐",
+                    "3": "桃子🍑"
+                  },
+                }, level: 1,
+                    value: [value],
+                    onConfirm: (values, texts) {
+                      setState(() {
+                        value = values.first;
+                        text = texts.first;
+                      });
+                    },
+                    useCupertinoStyle: true
+                );
+              },
+            ),
+          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: FlatButton(
+              child: Text('【material风格】当前已选：$text'),
+              onPressed: () {
+                Picker.show(context, dataSource: {
+                  "0": {
+                    "1": "苹果🍎",
+                    "2": "梨子🍐",
+                    "3": "桃子🍑"
+                  },
+                }, level: 1,
+                  value: [value],
+                  onConfirm: (values, texts) {
+                    setState(() {
+                      value = values.first;
+                      text = texts.first;
+                    });
+                  },
+                  useCupertinoStyle: false
+                );
+              },
+            ),
           )
         ],
       ),
-    ));
+    );
   }
 
 }

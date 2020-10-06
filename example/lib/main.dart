@@ -15,7 +15,15 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xff409bff)
         ),
         navigatorObservers: [BotToastNavigatorObserver()],
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case '/':
+              return MaterialWithModalsPageRoute(
+                  builder: (_) => MyHomePage(title: 'Flutter Demo Home Page'),
+                  settings: settings);
+          }
+          return null;
+        },
       ),
     );
   }

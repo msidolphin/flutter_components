@@ -41,7 +41,7 @@ class ModalBottomView extends StatelessWidget {
           Button("底部弹窗",
             margin: const EdgeInsets.symmetric(horizontal: 15),
             onPressed: () {
-            Ui.showModalBottomSheet(context, builder: (context, scrollController) {
+            Ui.showBottomSheet(context, builder: (context, scrollController) {
               return Material(
                 child: Container(
                   color: Colors.white,

@@ -18,27 +18,6 @@ typedef OnPickerValueChanged(List<String> value, List<String> text);
 
 class Picker {
 
-  static void showAreaPicker(BuildContext context, {
-    List<String> value,
-    int level = 3,
-    OnPickerValueChanged onConfirm,
-    PickerTheme theme = PickerTheme.Default,
-    FlatLocale locale = FlatLocale.zh_cn,
-    String title = ""
-  }) async {
-    String data = await rootBundle.loadString("lib/ui/picker/data/china_area.json");
-    Map<String, dynamic> jsonData = json.decode(data);
-    show(
-      context,
-      dataSource: jsonData,
-      level: level,
-      root: '86',
-      onConfirm: onConfirm,
-      value: value,
-      title: title
-    );
-  }
-
   static void show(BuildContext context, {
     @required Map<String, dynamic> dataSource,
     @required int level,
@@ -47,7 +26,8 @@ class Picker {
     List<String> value,
     OnPickerValueChanged onConfirm,
     PickerTheme theme = PickerTheme.Default,
-    FlatLocale locale = FlatLocale.zh_cn
+    FlatLocale locale = FlatLocale.zh_cn,
+    bool useCupertinoStyle
   }) {
     assert(level != null);
     assert(dataSource != null);
@@ -82,22 +62,33 @@ class Picker {
       },
       title: title,
     );
-    Ui.showModalBottomSheet(context, builder: (context, controller) {
-      return Material(
-        child: Container(
-          height: height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              pickerHeader,
-              Expanded(
-                  child: pickerWidget
-              )
-            ],
-          ),
+    final picker = Material(
+      child: Container(
+        height: height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            pickerHeader,
+            Expanded(
+                child: pickerWidget
+            )
+          ],
         ),
-      );
-    });
+      ),
+    );
+    if (useCupertinoStyle == null) {
+      Ui.showBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    } else if (useCupertinoStyle) {
+      Ui.showCupertinoBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    } else {
+      Ui.showMaterialBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    }
   }
 
   static Widget _create({

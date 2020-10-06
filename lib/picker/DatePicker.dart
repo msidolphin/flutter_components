@@ -59,6 +59,7 @@ class DatePicker {
     DateValueCallback onChange,
     DateValueCallback onConfirm,
     int minuteDivider = 1,
+    bool useCupertinoStyle
   }) {
     // handle the range of datetime
     if (minDateTime == null) {
@@ -154,14 +155,25 @@ class DatePicker {
     if (pickerTheme.title != null || pickerTheme.showTitle) {
       height += pickerTheme.titleHeight;
     }
-    Ui.showModalBottomSheet(context, builder: (ctx, controller) {
-      return Material(
-        child: Container(
-          height: height,
-          child: pickerWidget,
-        ),
-      );
-    });
+    final picker = Material(
+      child: Container(
+        height: height,
+        child: pickerWidget,
+      ),
+    );
+    if (useCupertinoStyle == null) {
+      Ui.showBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    } else if (useCupertinoStyle) {
+      Ui.showCupertinoBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    } else {
+      Ui.showMaterialBottomSheet(context, builder: (context, controller) {
+        return picker;
+      });
+    }
   }
 }
 

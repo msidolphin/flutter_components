@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_components/list/ListGroup.dart';
 import 'package:flutter_components/list/ListItem.dart';
+import 'package:flutter_components/widgets.dart';
 import 'package:flutter_components_example/view/ButtonView.dart';
 import 'package:flutter_components_example/view/ColorView.dart';
 import 'package:flutter_components_example/view/DialogView.dart';
@@ -17,10 +18,20 @@ import 'package:flutter_components_example/view/TimePickerView.dart';
 import 'package:flutter_components_example/view/ToastView.dart';
 import 'package:flutter_components_example/view/VerticalTabsView.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:get/get.dart';
 
 import 'SegmentView.dart';
 
-class Sample extends StatelessWidget {
+class Sample extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() {
+    return SampleState();
+  }
+
+}
+
+class SampleState extends State<Sample> {
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +62,7 @@ class Sample extends StatelessWidget {
                        icon: Icons.color_lens,
                       ),
                       onPressed: () {
-                        to(context, ColorView());
+//                        to(context, ColorView());
                       },
                     ),
                     ListItem(title: '按钮',
@@ -203,7 +214,7 @@ class Sample extends StatelessWidget {
   }
 
   void to(BuildContext context, Widget page) {
-    Navigator.push(context, MaterialPageRoute(
+    Navigator.push(context, MaterialWithModalsPageRoute(
       builder: (BuildContext context) {
         return Material(
           child: page,
@@ -215,6 +226,64 @@ class Sample extends StatelessWidget {
 
 }
 
+class Demo extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Scaffold(
+        body: Center(
+          child: FlatButton(
+            child: Text('presss'),
+            onPressed: () {
+              showCupertinoModalBottomSheet(
+                expand: false,
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (context, s) => Material(
+                    child: SafeArea(
+                      top: false,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            title: Text('Edit'),
+                            leading: Icon(Icons.edit),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          ListTile(
+                            title: Text('Copy'),
+                            leading: Icon(Icons.content_copy),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          ListTile(
+                            title: Text('Cut'),
+                            leading: Icon(Icons.content_cut),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          ListTile(
+                            title: Text('Move'),
+                            leading: Icon(Icons.folder_open),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          ListTile(
+                            title: Text('Delete'),
+                            leading: Icon(Icons.delete),
+                            onTap: () => Navigator.of(context).pop(),
+                          )
+                        ],
+                      ),
+                    )),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+
+}
 
 
 /// 圆形边框Icon

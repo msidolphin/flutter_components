@@ -16,9 +16,9 @@ class Ui {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static Future showModalBottomSheet(BuildContext context, {
+  static Future showBottomSheet(BuildContext context, {
     @required ScrollWidgetBuilder builder,
-    Color backgroundColor,
+    Color backgroundColor = Colors.transparent,
     double elevation,
     ShapeBorder shape,
     Clip clipBehavior,
@@ -32,6 +32,14 @@ class Ui {
   }) {
     assert(builder != null);
     if (Platform.isIOS) {
+      /// 需要这么配合才能生效
+      ///   Navigator.push(context, MaterialWithModalsPageRoute(
+      ///      builder: (BuildContext context) {
+      ///        return Material(
+      ///          child: page,
+      ///        );
+      ///      },
+      ///    ));
       return showCupertinoModalBottomSheet(
         context: context,
         builder: builder,
@@ -64,6 +72,70 @@ class Ui {
         enableDrag: enableDrag
       );
     }
+  }
+
+  static Future showMaterialBottomSheet(BuildContext context, {
+    @required ScrollWidgetBuilder builder,
+    Color backgroundColor = Colors.transparent,
+    double elevation,
+    ShapeBorder shape,
+    Clip clipBehavior,
+    Color barrierColor,
+    bool bounce = false,
+    bool expand = false,
+    AnimationController secondAnimation,
+    bool useRootNavigator = false,
+    bool isDismissible = true,
+    bool enableDrag = true,
+  }) {
+    assert(builder != null);
+    return showMaterialModalBottomSheet(
+        context: context,
+        builder: builder,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        shape: shape,
+        clipBehavior: clipBehavior,
+        barrierColor: barrierColor,
+        bounce: bounce,
+        expand: expand,
+        secondAnimation: secondAnimation,
+        useRootNavigator: useRootNavigator,
+        isDismissible: isDismissible,
+        enableDrag: enableDrag
+    );
+  }
+
+  static Future showCupertinoBottomSheet(BuildContext context, {
+    @required ScrollWidgetBuilder builder,
+    Color backgroundColor = Colors.transparent,
+    double elevation,
+    ShapeBorder shape,
+    Clip clipBehavior,
+    Color barrierColor,
+    bool bounce = false,
+    bool expand = false,
+    AnimationController secondAnimation,
+    bool useRootNavigator = false,
+    bool isDismissible = true,
+    bool enableDrag = true,
+  }) {
+    assert(builder != null);
+    return showCupertinoModalBottomSheet(
+        context: context,
+        builder: builder,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        shape: shape,
+        clipBehavior: clipBehavior,
+        barrierColor: barrierColor,
+        bounce: bounce,
+        expand: expand,
+        secondAnimation: secondAnimation,
+        useRootNavigator: useRootNavigator,
+        isDismissible: isDismissible,
+        enableDrag: enableDrag
+    );
   }
 
  static Future showCustomConfirmDialog(BuildContext context, {
@@ -132,22 +204,6 @@ class Ui {
         onCancel: onCancel,
       ),
     );
-  }
-
-  static Future<T> showBottomSheet<T>(BuildContext context, {
-    @required Widget child
-  }) async {
-    FocusScope.of(context).unfocus();
-    T res = await Navigator.push(
-        context,
-        BottomSheetRoute(
-            child: Material(
-              color: Colors.transparent,
-              child: child,
-            )
-        )
-    );
-    return res;
   }
 
   static void showSnackBar(BuildContext context, {
