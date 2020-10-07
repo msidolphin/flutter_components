@@ -21,6 +21,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 
 import 'SegmentView.dart';
+import 'SignatureView.dart';
 
 class Sample extends StatefulWidget {
 
@@ -62,7 +63,7 @@ class SampleState extends State<Sample> {
                        icon: Icons.color_lens,
                       ),
                       onPressed: () {
-//                        to(context, ColorView());
+                        to(context, ColorView());
                       },
                     ),
                     ListItem(title: '按钮',
@@ -203,6 +204,16 @@ class SampleState extends State<Sample> {
                       ),
                       onPressed: () {
                         to(context, PickerView());
+                      },
+                    ),
+                    ListItem(title: '签名',
+                      padding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.pink,
+                        icon: Icons.format_paint,
+                      ),
+                      onPressed: () {
+                        to(context, SignatureView());
                       },
                     ),
                   ])
