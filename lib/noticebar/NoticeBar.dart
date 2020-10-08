@@ -78,6 +78,7 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
 
   // 创建动画
   void createAnimate(double start, double end) {
+    transform?.removeListener(this.transformListener);
     transform = Tween<double>(begin: start, end: end)
         .animate(
         CurvedAnimation(
@@ -85,16 +86,18 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
             curve: Curves.linear
         )
     )
-      ..addListener(() {
-        setState(() {
-          if (-(_maxLeft - 1) >= transform.value) {
-            _left = _boxWidth;
-            createAnimate(_boxWidth, -_maxLeft);
-          } else {
-            _left = transform.value;
-          }
-        });
-      });
+      ..addListener(this.transformListener);
+  }
+
+  void transformListener() {
+    setState(() {
+      if (-(_maxLeft - 1) >= transform.value) {
+        _left = _boxWidth;
+        createAnimate(_boxWidth, -_maxLeft);
+      } else {
+        _left = transform.value;
+      }
+    });
   }
 
   // 关闭
