@@ -15,11 +15,11 @@ import 'package:flutter/widgets.dart';
 /// The [TabBar.indicatorSize] property can be used to define the indicator's
 /// bounds in terms of its (centered) widget with [TabIndicatorSize.label],
 /// or the entire tab with [TabIndicatorSize.tab].
-class HalfUnderlineTabIndicator extends Decoration {
+class PercentTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///
   /// The [borderSide] and [insets] arguments must not be null.
-  const HalfUnderlineTabIndicator({
+  const PercentTabIndicator({
     this.borderSide = const BorderSide(width: 2.0, color: Colors.blue),
     this.percent = 0.5,
     this.insets = EdgeInsets.zero,
@@ -70,7 +70,7 @@ class _UnderlinePainter extends BoxPainter {
       : assert(decoration != null),
         super(onChanged);
 
-  final HalfUnderlineTabIndicator decoration;
+  final PercentTabIndicator decoration;
   final double percent;
 
   BorderSide get borderSide => decoration.borderSide;

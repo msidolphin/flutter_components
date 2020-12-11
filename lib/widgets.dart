@@ -36,6 +36,5 @@ export 'tabs/VerticalTabIndicator.dart';
 export 'expandabletext/ExpandableText.dart';
 export 'signature/Signature.dart';
 export 'countup/CountUp.dart';
-export 'slidingpanel/SlidingPanel.dart';
 
 

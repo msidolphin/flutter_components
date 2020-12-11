@@ -1,5 +1,3 @@
-import 'package:url_launcher/url_launcher.dart';
-
 import '../model/IdLabel.dart';
 
 typedef Compare<T> = bool Function(T item);
@@ -57,12 +55,6 @@ class Util {
       if (compare(it)) newList.add(it);
     });
     return newList;
-  }
-
-  static void launchUrl(String path) async {
-    if (await canLaunch(path)) {
-      await launch(path);
-    }
   }
 
 }

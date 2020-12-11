@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../list/AbstractListItem.dart';
 import '../list/ListTile.dart';
@@ -103,7 +102,7 @@ class _ListItemState extends State<ListItem> {
     if (widget.icon == null) return null;
     bool isNetworkImage = widget.icon.startsWith("http");
     bool isAsset = !isNetworkImage;
-    return isAsset ? Image.asset(widget.icon, width: 28, height: 28) : CachedNetworkImage(imageUrl: widget.icon, width: 28, height: 28);
+    return isAsset ? Image.asset(widget.icon, width: 28, height: 28) : Image.network(widget.icon, width: 28, height: 28);
   }
 
   Widget _renderTrailing (BuildContext context) {

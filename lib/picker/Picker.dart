@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import '../i18n/i18n.dart';
 import '../picker/theme/PickerTheme.dart';
 import 'package:uuid/uuid.dart';
-
 import '../utils/ThemeColorUtil.dart';
 import '../utils/Ui.dart';
 import 'PickerRoute.dart';
