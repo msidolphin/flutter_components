@@ -17,6 +17,25 @@ typedef OnPickerValueChanged(List<String> value, List<String> text);
 
 class Picker {
 
+  static void showAreaPicker(BuildContext context, {
+    List<String> value,
+    int level = 3,
+    OnPickerValueChanged onConfirm,
+    PickerTheme theme = PickerTheme.Default,
+    FlatLocale locale = FlatLocale.zh_cn
+  }) async {
+    String data = await rootBundle.loadString("packages/flutter_components/picker/data/china_area.json");
+    Map<String, dynamic> jsonData = json.decode(data);
+    show(
+        context,
+        dataSource: jsonData,
+        level: level,
+        root: '86',
+        onConfirm: onConfirm,
+        value: value
+    );
+  }
+
   static void show(BuildContext context, {
     @required Map<String, dynamic> dataSource,
     @required int level,

@@ -145,6 +145,17 @@ class PickerViewState extends State<PickerView> {
               },
             ),
           ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: FlatButton(
+              child: Text('地区选择：${multipleColumnsSelectedText.join("/")}'),
+              onPressed: () {
+
+                Picker.showAreaPicker(context, onConfirm: (values, texts) {
+
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
