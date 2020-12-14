@@ -112,6 +112,10 @@ class _Button extends State<Button> {
   disabledTextColor() {
     if (widget.ghost) return Theme.of(context).primaryColor;
     if (widget.disabledTextColor != null) return widget.disabledTextColor;
+    if (widget.textColor != null) {
+      Color primary = widget.textColor;
+      return Color.fromRGBO(primary.red, primary.green, primary.blue, 0.4);
+    }
     return Colors.white;
   }
 
