@@ -156,7 +156,7 @@ class FieldInputItemState extends State<FormInputItem>
         margin: EdgeInsets.only(right: 15),
         child: Text(widget.label,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 17,
             color: ThemeColorUtil.titleTextColor(context)
           ),
         ),
@@ -170,7 +170,7 @@ class FieldInputItemState extends State<FormInputItem>
           children: <Widget>[
             Text(widget.label,
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 17,
                   color: ThemeColorUtil.titleTextColor(context)
               ),
             ),
@@ -208,7 +208,7 @@ class FieldInputItemState extends State<FormInputItem>
           });
         },
         style: TextStyle(
-            fontSize: 15,
+            fontSize: 17,
             textBaseline: TextBaseline.alphabetic
         ),
         cursorColor: Ui.isDarkMode(context) ? Colors.white : Theme.of(context).primaryColor,

@@ -89,7 +89,7 @@ class _ListItemState extends State<ListItem> {
             widget.title,
             style: TextStyle(
               color: ThemeColorUtil.titleTextColor(context),
-              fontSize: 15
+              fontSize: 17
             ),
           ),
           WidgetUtil.createWidget(widget.subtitle),
@@ -102,7 +102,7 @@ class _ListItemState extends State<ListItem> {
     if (widget.icon == null) return null;
     bool isNetworkImage = widget.icon.startsWith("http");
     bool isAsset = !isNetworkImage;
-    return isAsset ? Image.asset(widget.icon, width: 28, height: 28) : Image.network(widget.icon, width: 28, height: 28);
+    return isAsset ? Image.asset(widget.icon, width: 20, height: 20) : Image.network(widget.icon, width: 20, height: 20);
   }
 
   Widget _renderTrailing (BuildContext context) {
@@ -169,7 +169,7 @@ class ListItemTrailing extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       style: TextStyle(
-        fontSize: 15,
+        fontSize: 17,
         color: showPlaceholder() ? ThemeColorUtil.disabledColor(context) : ThemeColorUtil.subTitleTextColor(context)
       ),
     );

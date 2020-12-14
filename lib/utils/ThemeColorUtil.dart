@@ -36,7 +36,7 @@ class ThemeColorUtil {
 
   /// 副标题
   static Color subTitleTextColor(BuildContext context) {
-    return Ui.isDarkMode(context) ? Color(0xFF696969) : Color(0xff999999);
+    return Ui.isDarkMode(context) ? Color(0xFF696969) : Color.fromRGBO(0, 0, 0, 0.5);
   }
 
   /// 正文

@@ -126,13 +126,13 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
   Widget renderIcon(value) {
     if (widget.multiple) {
       if (currentValue.indexOf(value) != -1) {
-        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
+        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 20);
       } else {
         return widget.unSelectedIcon != null ? widget.unSelectedIcon : Gaps.empty;
       }
     } else {
       if (currentValue[0] == value) {
-        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 16);
+        return widget.selectedIcon != null ? widget.selectedIcon : Icon(Icons.check, color: ThemeColorUtil.primaryTextColor(context), size: 20);
       } else {
         return widget.unSelectedIcon != null ? widget.unSelectedIcon : Gaps.empty;
       }
