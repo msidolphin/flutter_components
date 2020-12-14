@@ -233,7 +233,7 @@ class GButton extends Button {
     this.margin = const EdgeInsets.all(0),
     this.disabled = false,
     this.backgroundColor,
-    this.textColor,
+    this.textColor = const Color(0xff333333),
     this.elevation = 1,
     this.disabledBackgroundColor,
     this.disabledTextColor, this.onDisabled, this.ghost = false}) : super({});
