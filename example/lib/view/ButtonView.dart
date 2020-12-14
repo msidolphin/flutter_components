@@ -40,6 +40,7 @@ class ButtonView extends StatelessWidget {
                 child: Button('小号按钮', size: ButtonSize.small, ghost: true,),
               ),
             ),
+            GButton("小圆角")
           ],
         ),
       ),

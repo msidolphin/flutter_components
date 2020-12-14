@@ -158,11 +158,11 @@ class _Button extends State<Button> {
       case ButtonSize.small:
         return 35;
       case ButtonSize.medium:
-        return 48;
+        return 44;
       case ButtonSize.large:
         return 48;
       default:
-        return 48;
+        return 44;
     }
   }
 
@@ -203,6 +203,43 @@ class _Button extends State<Button> {
 
 }
 
+class GButton extends Button {
+
+  final dynamic child;
+  final VoidCallback onPressed;
+  final VoidCallback onLongPressed;
+  final VoidCallback onDisabled;
+  final bool disabled;
+  final bool loading;
+  final bool radius;
+  final bool ghost;
+  final ButtonShape shape;
+  final ButtonSize size;
+  final EdgeInsetsGeometry margin;
+  final Color backgroundColor;
+  final Color textColor;
+  final Color disabledBackgroundColor;
+  final Color disabledTextColor;
+  final double elevation;
+
+  GButton(this.child, {
+    Key key,
+    this.size = ButtonSize.medium,
+    this.shape = ButtonShape.radius,
+    this.onPressed,
+    this.onLongPressed,
+    this.loading = false,
+    this.radius = false,
+    this.margin = const EdgeInsets.all(0),
+    this.disabled = false,
+    this.backgroundColor,
+    this.textColor,
+    this.elevation = 1,
+    this.disabledBackgroundColor,
+    this.disabledTextColor, this.onDisabled, this.ghost = false}) : super({});
+  
+}
+
 enum ButtonType {
   Primary,
   Warning,
@@ -219,7 +256,6 @@ enum ButtonSize {
   medium,
   large
 }
-
 
 const double _kDefaultIndicatorRadius = 10.0;
 
