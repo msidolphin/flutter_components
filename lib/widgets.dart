@@ -37,5 +37,6 @@ export 'expandabletext/ExpandableText.dart';
 export 'signature/Signature.dart';
 export 'countup/CountUp.dart';
 export 'pininput/widget/PinWidget.dart';
+export 'eventcalendar/event_calendar.dart';
 
 
