@@ -225,11 +225,11 @@ class CalendarController {
   /// Sets selected day to a given `value`.
   /// Use `runCallback: true` if this should trigger `OnDaySelected` callback.
   void setSelectedDay(
-    DateTime value, {
-    bool isProgrammatic = true,
-    bool animate = true,
-    bool runCallback = false,
-  }) {
+      DateTime value, {
+        bool isProgrammatic = true,
+        bool animate = true,
+        bool runCallback = false,
+      }) {
     final normalizedDate = _normalizeDate(value);
 
     if (animate) {
@@ -300,6 +300,34 @@ class CalendarController {
     } else {
       _selectNextWeek();
     }
+    _visibleDays.value = _getVisibleDays();
+    _incrementPage();
+  }
+
+  /// Displays the previous Calendar page.
+  void previousPage() {
+    if (calendarFormat == CalendarFormat.month) {
+      _selectPreviousMonth();
+    } else if (calendarFormat == CalendarFormat.twoWeeks) {
+      _selectPreviousTwoWeeks();
+    } else {
+      _selectPreviousWeek();
+    }
+
+    _visibleDays.value = _getVisibleDays();
+    _decrementPage();
+  }
+
+  /// Displays the next Calendar page.
+  void nextPage() {
+    if (calendarFormat == CalendarFormat.month) {
+      _selectNextMonth();
+    } else if (calendarFormat == CalendarFormat.twoWeeks) {
+      _selectNextTwoWeeks();
+    } else {
+      _selectNextWeek();
+    }
+
     _visibleDays.value = _getVisibleDays();
     _incrementPage();
   }
