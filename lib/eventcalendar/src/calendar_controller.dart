@@ -165,6 +165,7 @@ class CalendarController {
           onVisibleDaysChanged(
             _getFirstDay(includeInvisible: _includeInvisibleDays),
             _getLastDay(includeInvisible: _includeInvisibleDays),
+            _focusedDay,
             _calendarFormat.value,
           );
         }
@@ -178,6 +179,7 @@ class CalendarController {
         _calendarFormat.value,
       );
     }
+
   }
 
   /// Disposes the controller.
@@ -308,6 +310,9 @@ class CalendarController {
   void previousPage() {
     if (calendarFormat == CalendarFormat.month) {
       _selectPreviousMonth();
+      if (focusedDay.year == _selectedDay.year && focusedDay.month == _selectedDay.month) {
+        _focusedDay = _selectedDay;
+      }
     } else if (calendarFormat == CalendarFormat.twoWeeks) {
       _selectPreviousTwoWeeks();
     } else {
@@ -322,6 +327,9 @@ class CalendarController {
   void nextPage() {
     if (calendarFormat == CalendarFormat.month) {
       _selectNextMonth();
+      if (focusedDay.year == _selectedDay.year && focusedDay.month == _selectedDay.month) {
+        _focusedDay = _selectedDay;
+      }
     } else if (calendarFormat == CalendarFormat.twoWeeks) {
       _selectNextTwoWeeks();
     } else {

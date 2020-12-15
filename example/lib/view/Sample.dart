@@ -6,6 +6,7 @@ import 'package:flutter_components/widgets.dart';
 import 'package:flutter_components_example/view/ButtonView.dart';
 import 'package:flutter_components_example/view/ColorView.dart';
 import 'package:flutter_components_example/view/DialogView.dart';
+import 'package:flutter_components_example/view/EventCalendarView.dart';
 import 'package:flutter_components_example/view/ExpandableTextView.dart';
 import 'package:flutter_components_example/view/FormView.dart';
 import 'package:flutter_components_example/view/ListGroupView.dart';
@@ -214,6 +215,16 @@ class SampleState extends State<Sample> {
                       ),
                       onPressed: () {
                         to(context, SignatureView());
+                      },
+                    ),
+                    ListItem(title: '日历',
+                      padding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.blue,
+                        icon: Icons.calendar_today_rounded,
+                      ),
+                      onPressed: () {
+                        to(context, EventCalendarView());
                       },
                     ),
                   ])

@@ -24,8 +24,11 @@ class DaysOfWeekStyle {
   /// Style for weekend days on the top of Calendar.
   final TextStyle weekendStyle;
 
+  final double height;
+
   const DaysOfWeekStyle({
     this.dowTextBuilder,
+    this.height = 32,
     this.decoration = const BoxDecoration(),
     this.weekdayStyle =
         const TextStyle(color: const Color(0xFF616161)), // Material grey[700]

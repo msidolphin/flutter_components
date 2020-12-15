@@ -8,7 +8,7 @@ typedef void OnDaySelected(DateTime day, List events, List holidays);
 
 /// Callback exposing currently visible days (first and last of them), as well as current `CalendarFormat`.
 typedef void OnVisibleDaysChanged(
-    DateTime first, DateTime last, CalendarFormat format);
+    DateTime first, DateTime last, DateTime focused, CalendarFormat format);
 
 /// Callback exposing initially visible days (first and last of them), as well as initial `CalendarFormat`.
 typedef void OnCalendarCreated(
@@ -638,13 +638,21 @@ class _EventCalendarState extends State<EventCalendar>
         if (widget.builders.dowWeekdayBuilder != null) {
           return widget.builders.dowWeekdayBuilder(context, weekdayString);
         }
-        return Center(
-          child: Text(
-            weekdayString,
-            style: isWeekend
-                ? widget.daysOfWeekStyle.weekendStyle
-                : widget.daysOfWeekStyle.weekdayStyle,
-          ),
+        return LayoutBuilder(
+          builder: (context, constraints) => ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: widget.daysOfWeekStyle.height ?? constraints.maxWidth,
+              minHeight: widget.daysOfWeekStyle.height ?? constraints.maxWidth,
+            ),
+            child: Center(
+              child: Text(
+                weekdayString,
+                style: isWeekend
+                    ? widget.daysOfWeekStyle.weekendStyle
+                    : widget.daysOfWeekStyle.weekdayStyle,
+              ),
+            ),
+          )
         );
       }).toList(),
     );
