@@ -32,7 +32,7 @@ class CalendarController {
   DateTime get selectedDay => _selectedDay;
 
   /// Currently visible calendar format.
-  CalendarFormat get calendarFormat => _calendarFormat.value;
+  CalendarFormat get calendarFormat => _calendarFormat?.value;
 
   /// List of currently visible days.
   List<DateTime> get visibleDays =>
@@ -217,7 +217,7 @@ class CalendarController {
 
   /// Sets calendar format to a given `value`.
   bool setCalendarFormat(CalendarFormat value) {
-    if (_calendarFormat.value == value) return false;
+    if (_calendarFormat == null || _calendarFormat.value == value) return false;
     _calendarFormat.value = value;
     return true;
   }
