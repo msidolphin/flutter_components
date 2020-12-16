@@ -70,7 +70,7 @@ class _FieldRangeSliderItemState extends State<FieldRangeSliderItem>
   @override
   Widget build(BuildContext context) {
     return RawFieldItem(
-      isLast: widget.isLast,
+      isFirst: widget.isFirst,
       leading: widget.leading,
       trailing: widget.trailing,
       child: Row(

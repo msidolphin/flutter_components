@@ -61,7 +61,7 @@ class _FieldSwitchItem extends State<FormSwitchItem>
     return RawFieldItem(
       leading: widget.leading,
       trailing: widget.trailing,
-      isLast: widget.isLast,
+      isFirst: widget.isFirst,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

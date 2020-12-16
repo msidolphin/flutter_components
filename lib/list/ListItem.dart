@@ -15,13 +15,13 @@ class ListItem extends AbstractListItem {
   final Widget trailing;
   final Widget leading;
   final String icon;
-  final double padding;
+  final double leftPadding;
   final int maxLines;
   final CrossAxisAlignment align;
   final bool border;
   final Color arrowColor;
   final bool dense;
-  final bool visible;
+  final TextStyle titleStyle;
 
   ListItem({
     Key key,
@@ -33,11 +33,11 @@ class ListItem extends AbstractListItem {
     this.maxLines = 1,
     this.subtitle,
     this.trailing,
-    this.padding = 12,
+    this.leftPadding = 12,
     this.align = CrossAxisAlignment.center,
     this.border = true,
-    this.visible = true,
     this.arrowColor,
+    this.titleStyle,
   }) : super(key: key);
 
 
@@ -58,9 +58,9 @@ class _ListItemState extends State<ListItem> {
     return Container(
       child: $ListTile(
         dense: widget.dense,
-        isLast: !widget.border ? true : widget.isLast,
+        isFirst: !widget.border ? true : widget.isFirst,
         leading: widget.leading == null ? _renderLeading() : widget.leading,
-        contentPadding: EdgeInsets.only(left: 12, right: 0),
+        contentPadding: EdgeInsets.only(left: widget.leftPadding, right: 0),
         title: Container(
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -81,16 +81,21 @@ class _ListItemState extends State<ListItem> {
   }
 
   Widget _renderHeading(BuildContext context) {
+    TextStyle style = TextStyle(
+      color: ThemeColorUtil.titleTextColor(context),
+      fontSize: 17,
+    );
+    if (widget.titleStyle != null) {
+      style = style.merge(widget.titleStyle);
+    }
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             widget.title,
-            style: TextStyle(
-              color: ThemeColorUtil.titleTextColor(context),
-              fontSize: 17
-            ),
+            style: style,
           ),
           WidgetUtil.createWidget(widget.subtitle),
         ],
@@ -154,13 +159,21 @@ class _ListItemState extends State<ListItem> {
 }
 
 
+
+
 class ListItemTrailing extends StatelessWidget {
 
   final String text;
+  final TextStyle textStyle;
   final String placeholder;
+  final TextStyle placeholderStyle;
   final int maxLines;
 
-  const ListItemTrailing({Key key, this.text, this.placeholder, this.maxLines = 2}) : super(key: key);
+  const ListItemTrailing(
+      {Key key, this.text, this.placeholder, this.maxLines = 2,
+    this.textStyle,
+    this.placeholderStyle
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -168,10 +181,13 @@ class ListItemTrailing extends StatelessWidget {
       text == null || text.trim().isEmpty ? (placeholder != null && placeholder.isNotEmpty) ? placeholder : "" : text,
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
-      style: TextStyle(
+      style: showPlaceholder() ? TextStyle(
         fontSize: 17,
-        color: showPlaceholder() ? ThemeColorUtil.disabledColor(context) : ThemeColorUtil.subTitleTextColor(context)
-      ),
+        color: ThemeColorUtil.disabledColor(context)
+      ).merge(placeholderStyle) : TextStyle(
+        fontSize: 17,
+        color: ThemeColorUtil.subTitleTextColor(context)
+      ).merge(textStyle),
     );
   }
 

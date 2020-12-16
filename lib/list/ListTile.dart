@@ -633,7 +633,7 @@ class $ListTile extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.selected = false,
-    this.isLast = false,
+    this.isFirst = false,
     this.minVerticalPadding = 4.0
   }) : assert(isThreeLine != null),
         assert(enabled != null),
@@ -722,7 +722,7 @@ class $ListTile extends StatelessWidget {
   final bool selected;
 
   /// 是否为最后一个 最后一个不添加border
-  final bool isLast;
+  final bool isFirst;
 
   /// 最小垂直padding 默认4
   final double minVerticalPadding;
@@ -904,9 +904,9 @@ class $ListTile extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(left: 0),
-                  decoration: isLast ? null : BoxDecoration(
+                  decoration: isFirst ? null : BoxDecoration(
                       border: Border(
-                        bottom: Divider.createBorderSide(context, width: 0.4),
+                        top: Divider.createBorderSide(context, width: 0.4),
                       )
                   ),
                   child: _ListTile(

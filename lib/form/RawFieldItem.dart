@@ -7,7 +7,7 @@ class RawFieldItem extends StatelessWidget {
 
   final double verticalPadding;
 
-  final bool isLast;
+  final bool isFirst;
 
   final Widget leading;
 
@@ -19,7 +19,7 @@ class RawFieldItem extends StatelessWidget {
     Key key,
     @required this.child,
     this.verticalPadding = 0,
-    this.isLast = false,
+    this.isFirst = false,
     this.leading,
     this.trailing,
     this.onPressed
@@ -32,7 +32,7 @@ class RawFieldItem extends StatelessWidget {
       leading: leading,
       trailing: trailing,
       dense: true,
-      isLast: isLast,
+      isFirst: isFirst,
       contentPadding: EdgeInsets.only(left: 15, right: 0),
       minVerticalPadding: verticalPadding,
       title: Container(

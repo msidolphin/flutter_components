@@ -78,7 +78,7 @@ class _FieldSliderItemState extends State<FormSliderItem>
   @override
   Widget build(BuildContext context) {
     return RawFieldItem(
-      isLast: widget.isLast,
+      isFirst: widget.isFirst,
       leading: widget.leading,
       trailing: widget.trailing,
       child: Row(

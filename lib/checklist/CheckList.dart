@@ -86,7 +86,7 @@ class _CheckList extends State<CheckList> with FieldItemMixin{
   }
   Widget getItemChild (ICheckListItem item, index) {
     return RawFieldItem(
-        isLast: index == widget.options.length -1 ? true : false,
+        isFirst: index == 0 ? true : false,
         leading: widget.leading,
         onPressed: () {
           setState(() {

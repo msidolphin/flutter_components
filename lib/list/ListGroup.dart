@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_components/list/AbstractListItem.dart';
 import '../utils/Ui.dart';
-import '../list/ListItem.dart';
 import '../utils/FlatMarging.dart';
-import '../utils/Util.dart';
 
 // ignore: must_be_immutable
 class ListGroup extends StatelessWidget {
 
-  final List<ListItem> children;
+  final List<AbstractListItem> children;
 
   final EdgeInsetsGeometry margin;
 
   final bool bordered;
 
-  List<ListItem> _children;
+  List<AbstractListItem> _children;
 
 
   ListGroup({@required this.children, this.margin, this.bordered = false}) {
@@ -23,14 +22,13 @@ class ListGroup extends StatelessWidget {
 
   void handleLastItem () {
     // deep clone
-    this._children = List<ListItem>.generate(
+    this._children = List<AbstractListItem>.generate(
       this.children.length,
           (index) => this.children[index],
       growable: true,
     );
-    this._children = Util.filter<ListItem>(this._children, (item) => item.visible);
     if (this._children.length > 0) {
-      this._children[this._children.length - 1].isLast = true;
+      this._children.first.isFirst = true;
     }
   }
 
@@ -51,6 +49,8 @@ class ListGroup extends StatelessWidget {
         child: Material( // 套一层Material，解决漪涟效果失效的问题 https://www.jianshu.com/p/48c2ea1218e5
           color: Ui.isDarkMode(context) ? Theme.of(context).scaffoldBackgroundColor : Colors.white,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: _children
           ),
         ));

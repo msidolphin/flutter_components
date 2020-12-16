@@ -5,7 +5,7 @@ abstract class AbstractListItem extends StatefulWidget {
 
   final Key key;
 
-  bool isLast = false;
+  bool isFirst = false;
 
   AbstractListItem({ this.key }): super(key: key);
 

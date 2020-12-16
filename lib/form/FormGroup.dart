@@ -46,7 +46,7 @@ class FormGroup extends StatelessWidget {
       growable: true,
     );
     if (this._children.length > 0) {
-      this._children[this._children.length - 1].isLast = true;
+      this._children.first.isFirst = true;
     }
   }
 

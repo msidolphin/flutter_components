@@ -137,7 +137,7 @@ class FieldInputItemState extends State<FormInputItem>
     return RawFieldItem(
       leading: widget.leading,
       trailing: widget.trailing,
-      isLast: widget.isLast,
+      isFirst: widget.isFirst,
       verticalPadding: widget.maxLines == 1 ? 0 : 12,
       child: Row(
         children: <Widget>[
