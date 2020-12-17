@@ -5,7 +5,7 @@ import 'dart:math' as math;
 
 // Extracted from iOS 13.2 Beta.
 const Color _kActiveTickColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xFFEBEBF5),
+  color: Color(0xFFA4A4A4),
   darkColor: Color(0xFFEBEBF5),
 );
 
@@ -102,11 +102,10 @@ class _Button extends State<Button> {
   }
 
   disabledColor() {
-    Color primary = Theme.of(context).primaryColor;
+    Color primary = widget.backgroundColor ?? Theme.of(context).primaryColor;
+    Color disabledColor = widget.disabledBackgroundColor ?? Color.fromARGB((255.0 * .45).round(), primary.red, primary.green, primary.blue);
     if (widget.ghost) return Colors.transparent;
-    if (widget.loading) return Theme.of(context).primaryColor;
-    if (widget.disabledBackgroundColor != null) return widget.disabledBackgroundColor;
-    return Color.fromRGBO(primary.red, primary.green, primary.blue, 0.4);
+    return disabledColor;
   }
 
   disabledTextColor() {
@@ -207,26 +206,21 @@ class _Button extends State<Button> {
 
 }
 
+ /// gjy primary button
 class GButton extends Button {
 
-  final dynamic child;
   final VoidCallback onPressed;
   final VoidCallback onLongPressed;
   final VoidCallback onDisabled;
   final bool disabled;
   final bool loading;
   final bool radius;
-  final bool ghost;
   final ButtonShape shape;
   final ButtonSize size;
   final EdgeInsetsGeometry margin;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color disabledBackgroundColor;
-  final Color disabledTextColor;
   final double elevation;
-
-  GButton(this.child, {
+  
+  GButton(dynamic child, {
     Key key,
     this.size = ButtonSize.medium,
     this.shape = ButtonShape.radius,
@@ -236,12 +230,52 @@ class GButton extends Button {
     this.radius = false,
     this.margin = const EdgeInsets.all(0),
     this.disabled = false,
-    this.backgroundColor,
-    this.textColor = const Color(0xff333333),
     this.elevation = 1,
-    this.disabledBackgroundColor,
-    this.disabledTextColor, this.onDisabled, this.ghost = false}) : super({});
+    this.onDisabled})
+    : super(
+    child,
+    backgroundColor: const Color(0xffffb700),
+    textColor: const Color(0xff333333),
+    disabledBackgroundColor:  const Color(0xffffde8a),
+    disabledTextColor: const Color.fromRGBO(51, 51, 51, .4),
+  );
   
+}
+
+/// gjy secondary button
+class GSecondaryButton extends Button {
+
+  final VoidCallback onPressed;
+  final VoidCallback onLongPressed;
+  final VoidCallback onDisabled;
+  final bool disabled;
+  final bool loading;
+  final bool radius;
+  final ButtonShape shape;
+  final ButtonSize size;
+  final EdgeInsetsGeometry margin;
+  final double elevation;
+
+  GSecondaryButton(dynamic child, {
+    Key key,
+    this.size = ButtonSize.medium,
+    this.shape = ButtonShape.radius,
+    this.onPressed,
+    this.onLongPressed,
+    this.loading = false,
+    this.radius = false,
+    this.margin = const EdgeInsets.all(0),
+    this.disabled = false,
+    this.elevation = 1,
+    this.onDisabled
+    }) : super(
+    child,
+    backgroundColor: Colors.white,
+    textColor: const Color(0xff333333),
+    disabledBackgroundColor: Colors.white,
+    disabledTextColor: const Color.fromRGBO(51, 51, 51, .4)
+  );
+
 }
 
 enum ButtonType {
