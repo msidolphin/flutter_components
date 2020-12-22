@@ -22,12 +22,15 @@ class PercentTabIndicator extends Decoration {
   const PercentTabIndicator({
     this.borderSide = const BorderSide(width: 2.0, color: Colors.blue),
     this.percent = 0.5,
+    this.strokeCap = StrokeCap.square,
     this.insets = EdgeInsets.zero,
   }) : assert(borderSide != null),
         assert(insets != null);
 
   /// The color and weight of the horizontal line drawn below the selected tab.
   final BorderSide borderSide;
+
+  final StrokeCap strokeCap;
 
   final double percent;
   /// Locates the selected tab's underline relative to the tab's boundary.
@@ -39,10 +42,12 @@ class PercentTabIndicator extends Decoration {
 
   @override
   Decoration lerpFrom(Decoration a, double t) {
-    if (a is UnderlineTabIndicator) {
-      return UnderlineTabIndicator(
+    if (a is PercentTabIndicator) {
+      return PercentTabIndicator(
         borderSide: BorderSide.lerp(a.borderSide, borderSide, t),
         insets: EdgeInsetsGeometry.lerp(a.insets, insets, t),
+        percent: percent,
+        strokeCap: strokeCap
       );
     }
     return super.lerpFrom(a, t);
@@ -50,10 +55,12 @@ class PercentTabIndicator extends Decoration {
 
   @override
   Decoration lerpTo(Decoration b, double t) {
-    if (b is UnderlineTabIndicator) {
-      return UnderlineTabIndicator(
+    if (b is PercentTabIndicator) {
+      return PercentTabIndicator(
         borderSide: BorderSide.lerp(borderSide, b.borderSide, t),
         insets: EdgeInsetsGeometry.lerp(insets, b.insets, t),
+        percent: percent,
+        strokeCap: strokeCap
       );
     }
     return super.lerpTo(b, t);
@@ -61,17 +68,25 @@ class PercentTabIndicator extends Decoration {
 
   @override
   _UnderlinePainter createBoxPainter([ VoidCallback onChanged ]) {
-    return _UnderlinePainter(this, onChanged, percent);
+    return _UnderlinePainter(
+      decoration: this,
+      percent: percent,
+      onChanged: onChanged,
+      strokeCap: strokeCap
+    );
   }
 }
 
 class _UnderlinePainter extends BoxPainter {
-  _UnderlinePainter(this.decoration, VoidCallback onChanged, this.percent)
+  _UnderlinePainter({this.decoration, VoidCallback onChanged, this.percent, this.strokeCap})
       : assert(decoration != null),
         super(onChanged);
 
   final PercentTabIndicator decoration;
   final double percent;
+  final StrokeCap strokeCap;
+
+  double dx = 0;
 
   BorderSide get borderSide => decoration.borderSide;
   EdgeInsetsGeometry get insets => decoration.insets;
@@ -95,7 +110,7 @@ class _UnderlinePainter extends BoxPainter {
     final Rect rect = offset & configuration.size;
     final TextDirection textDirection = configuration.textDirection;
     final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.0);
-    final Paint paint = borderSide.toPaint()..strokeCap = StrokeCap.square;
+    final Paint paint = borderSide.toPaint()..strokeCap = strokeCap;
     canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
   }
 }

@@ -10,7 +10,8 @@ class ListItem extends AbstractListItem {
 
   /// TODO 标题支持固定宽？
   final GestureTapCallback onPressed;
-  final String title;
+  /// widget
+  final dynamic title;
   final Widget subtitle;
   final Widget trailing;
   final Widget leading;
@@ -66,7 +67,7 @@ class _ListItemState extends State<ListItem> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: widget.align,
             children: <Widget>[
-              _renderHeading(context),
+              widget.title is String ? _renderHeading(context) : widget.title,
               SizedBox(width: 15,),
               Expanded(child: Container(
                 alignment: Alignment.centerRight,

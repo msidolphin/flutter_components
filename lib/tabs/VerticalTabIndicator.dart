@@ -79,7 +79,7 @@ class _UnderlinePainter extends BoxPainter {
     /// 绘制滑块
     canvas.drawRect(Rect.fromCenter(
         center: indicator.center,
-        width: 1000, /// 暂时获取不到准确的宽度，画一个很宽的。。。
+        width: 1000, /// 暂时获取不到准确的宽度，画一个很宽的。。。  当前可以传进来
         height: indicator.height + borderSide.width
     ), new Paint(
     )..style = PaintingStyle.fill..color = sliderColor);

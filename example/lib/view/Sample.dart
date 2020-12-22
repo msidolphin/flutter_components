@@ -15,6 +15,7 @@ import 'package:flutter_components_example/view/NoticeBarView.dart';
 import 'package:flutter_components_example/view/PickerView.dart';
 import 'package:flutter_components_example/view/ResultView.dart';
 import 'package:flutter_components_example/view/SlidableView.dart';
+import 'package:flutter_components_example/view/TabBarIndicatorView.dart';
 import 'package:flutter_components_example/view/TimePickerView.dart';
 import 'package:flutter_components_example/view/ToastView.dart';
 import 'package:flutter_components_example/view/VerticalTabsView.dart';
@@ -227,6 +228,16 @@ class SampleState extends State<Sample> {
                         to(context, EventCalendarView());
                       },
                     ),
+                  ListItem(title: 'TabBar指示器',
+                    leftPadding: 10,
+                    leading: CircularIcon(
+                      bgColor: Colors.red,
+                      icon: Icons.tab,
+                    ),
+                    onPressed: () {
+                      to(context, TabBarIndicatorView());
+                    },
+                  ),
                   ])
               ]))
             ]

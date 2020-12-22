@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../utils/Gaps.dart';
 
-// 默认字体颜色
 const Color _fontColor = Color(0xffFF8F1F);
-// 背景色
 const Color _color = Color(0xFFFFF9ED);
 
 class NoticeBar extends StatefulWidget {
-  // 字体颜色
+
   final Color fontColor;
-  // 背景色
   final Color color;
-  // 图标
   final Widget icon;
-  // 动画过度时间
   final int duration;
-  // 是否可关闭
   final bool closeable;
-  // 内容
   final Widget child;
 
   final bool isScrollable;
@@ -37,20 +30,15 @@ class NoticeBar extends StatefulWidget {
 }
 
 class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
-  // bar容器key
+
   GlobalKey _barKey = GlobalKey();
-  // box
   GlobalKey _boxKey = GlobalKey();
-  // 最大值
   double _maxLeft;
   double _boxWidth;
-  // padding
   final double _boxPadding = 5;
   double _left = 0;
-  // 动画
   AnimationController controller;
   Animation transform;
-  // 是否被关闭
   bool isClose = false;
 
   @override
@@ -64,9 +52,7 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
     _boxWidth = _boxKey.currentContext?.size?.width;
     if (_maxLeft == null) _maxLeft = 0;
     if (_boxWidth == null) _boxWidth = 0;
-    // 判断是否滚动
     if (_maxLeft > _boxWidth && widget.isScrollable) {
-      // 初始化动画
       controller = AnimationController(
           duration: Duration(milliseconds: widget.duration),
           vsync: this
@@ -76,7 +62,6 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
     }
   }
 
-  // 创建动画
   void createAnimate(double start, double end) {
     transform?.removeListener(this.transformListener);
     transform = Tween<double>(begin: start, end: end)
@@ -100,7 +85,6 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
     });
   }
 
-  // 关闭
   void close() {
     disposeAnimate();
     setState(() {
@@ -108,7 +92,6 @@ class NoticeBarState extends State<NoticeBar> with TickerProviderStateMixin {
     });
   }
 
-  // 销毁动画
   void disposeAnimate() {
     controller?.dispose();
     controller = null;
