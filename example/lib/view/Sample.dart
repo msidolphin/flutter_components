@@ -6,6 +6,7 @@ import 'package:flutter_components/widgets.dart';
 import 'package:flutter_components_example/view/ButtonView.dart';
 import 'package:flutter_components_example/view/ColorView.dart';
 import 'package:flutter_components_example/view/DialogView.dart';
+import 'package:flutter_components_example/view/DrawerView.dart';
 import 'package:flutter_components_example/view/EventCalendarView.dart';
 import 'package:flutter_components_example/view/ExpandableTextView.dart';
 import 'package:flutter_components_example/view/FormView.dart';
@@ -228,16 +229,26 @@ class SampleState extends State<Sample> {
                         to(context, EventCalendarView());
                       },
                     ),
-                  ListItem(title: 'TabBar指示器',
-                    leftPadding: 10,
-                    leading: CircularIcon(
-                      bgColor: Colors.red,
-                      icon: Icons.tab,
+                    ListItem(title: 'TabBar指示器',
+                      leftPadding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.red,
+                        icon: Icons.tab,
+                      ),
+                      onPressed: () {
+                        to(context, TabBarIndicatorView());
+                      },
                     ),
-                    onPressed: () {
-                      to(context, TabBarIndicatorView());
-                    },
-                  ),
+                    ListItem(title: 'Drawer抽屉',
+                      leftPadding: 10,
+                      leading: CircularIcon(
+                        bgColor: Colors.green,
+                        icon: Icons.menu,
+                      ),
+                      onPressed: () {
+                        to(context, DrawerView());
+                      },
+                    ),
                   ])
               ]))
             ]

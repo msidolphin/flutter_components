@@ -1,7 +1,7 @@
 // Copyright 2018 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -67,8 +67,8 @@ class PercentTabIndicator extends Decoration {
   }
 
   @override
-  _UnderlinePainter createBoxPainter([ VoidCallback onChanged ]) {
-    return _UnderlinePainter(
+  PercentTabIndicatorPainter createBoxPainter([ VoidCallback onChanged ]) {
+    return PercentTabIndicatorPainter(
       decoration: this,
       percent: percent,
       onChanged: onChanged,
@@ -77,8 +77,9 @@ class PercentTabIndicator extends Decoration {
   }
 }
 
-class _UnderlinePainter extends BoxPainter {
-  _UnderlinePainter({this.decoration, VoidCallback onChanged, this.percent, this.strokeCap})
+class PercentTabIndicatorPainter extends BoxPainter {
+
+  PercentTabIndicatorPainter({this.decoration, VoidCallback onChanged, this.percent, this.strokeCap})
       : assert(decoration != null),
         super(onChanged);
 
@@ -95,16 +96,92 @@ class _UnderlinePainter extends BoxPainter {
     assert(rect != null);
     assert(textDirection != null);
     final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
+    double left = indicator.left;
     return Rect.fromLTWH(
-      indicator.left + (indicator.width - indicator.width * percent) * 0.5 ,
+      left,
       indicator.bottom - borderSide.width,
-      indicator.width * percent,
+      indicator.width,
       borderSide.width,
     );
   }
 
+  void paintIndicator(Canvas canvas,
+      Offset offset,
+      ImageConfiguration configuration,
+      Rect currentRect,
+      Rect targetRect
+    ) {
+    assert(configuration != null);
+    assert(configuration.size != null);
+    /// 37.8 141.3
+    final Rect rect = offset & configuration.size;
+    final TextDirection textDirection = configuration.textDirection;
+
+    assert(rect != null);
+    assert(textDirection != null);
+    final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
+    Rect indicatorRect;
+    /// 计算滑动系数（TODO 粗略计算 更好的方式是求出最大滑动距离再求得系数）
+    double minWidth = math.min(targetRect.width, currentRect.width);
+    double maxWidth = math.max(targetRect.width, currentRect.width);
+    double k = (maxWidth / minWidth).floor() + 1.0;
+    if  (targetRect.left < currentRect.left) {
+      /// 滑动距离
+      double left = indicator.left;
+      double dx = (currentRect.left - indicator.left) * k;
+      double maxWidth = currentRect.left - targetRect.left;
+      double right = currentRect.left + currentRect.width;
+      double minRight = targetRect.width + targetRect.left;
+      if (dx >= maxWidth) {
+        left = targetRect.left;
+        /// 右侧收缩
+        right += (indicator.left - this.dx) * 2;
+      } else {
+        left = currentRect.left - dx;
+        this.dx = indicator.left;
+      }
+      /// 检查右边界
+      if (right < minRight) right = minRight;
+      indicatorRect = Rect.fromLTRB(
+          left,
+          indicator.bottom - borderSide.width,
+          right,
+          indicator.height
+      ).deflate(borderSide.width / 2.0);
+    } else {
+      /// 滑动距离
+      double dx = (indicator.left - currentRect.left) * k;
+      double left = currentRect.left;
+      /// 最大右边界
+      double maxRight = targetRect.left + targetRect.width;
+      double right = left + currentRect.width + dx;
+      if (right > maxRight) {
+        right = maxRight;
+        /// 左侧收缩
+        left += (indicator.left - this.dx) * 2;
+      } else {
+        this.dx = indicator.left;
+      }
+      /// 防止左边界溢出
+      if (left > targetRect.left) {
+        left = targetRect.left;
+      }
+      indicatorRect = Rect.fromLTRB(
+          left,
+          indicator.bottom - borderSide.width,
+          right,
+          indicator.height
+      ).deflate(borderSide.width / 2.0);
+    }
+    final Paint paint = borderSide.toPaint()..strokeCap = strokeCap;
+    canvas.drawLine(indicatorRect.bottomLeft, indicatorRect.bottomRight, paint);
+  }
+
   @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+  void paint(Canvas canvas,
+      Offset offset,
+      ImageConfiguration configuration,
+    ) {
     assert(configuration != null);
     assert(configuration.size != null);
     final Rect rect = offset & configuration.size;
@@ -113,4 +190,5 @@ class _UnderlinePainter extends BoxPainter {
     final Paint paint = borderSide.toPaint()..strokeCap = strokeCap;
     canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
   }
+
 }

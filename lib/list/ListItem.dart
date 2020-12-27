@@ -12,7 +12,6 @@ class ListItem extends AbstractListItem {
   final GestureTapCallback onPressed;
   /// widget
   final dynamic title;
-  final Widget subtitle;
   final Widget trailing;
   final Widget leading;
   final String icon;
@@ -32,14 +31,13 @@ class ListItem extends AbstractListItem {
     this.icon,
     this.leading,
     this.maxLines = 1,
-    this.subtitle,
     this.trailing,
     this.leftPadding = 12,
     this.align = CrossAxisAlignment.center,
     this.border = true,
     this.arrowColor,
     this.titleStyle,
-  }) : super(key: key);
+  }) : assert(title != null && (title is Widget || title is String)), super(key: key);
 
 
 
@@ -67,7 +65,7 @@ class _ListItemState extends State<ListItem> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: widget.align,
             children: <Widget>[
-              widget.title is String ? _renderHeading(context) : widget.title,
+              widget.title is Widget ? widget.title : _renderHeading(context),
               SizedBox(width: 15,),
               Expanded(child: Container(
                 alignment: Alignment.centerRight,
@@ -90,16 +88,9 @@ class _ListItemState extends State<ListItem> {
       style = style.merge(widget.titleStyle);
     }
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            widget.title,
-            style: style,
-          ),
-          WidgetUtil.createWidget(widget.subtitle),
-        ],
+      child: Text(
+        widget.title,
+        style: style,
       ),
     );
   }
