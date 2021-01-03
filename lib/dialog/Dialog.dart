@@ -52,9 +52,10 @@ class Dialog {
           case DialogTransition.scale:
             widget = Transform.scale(
               scale: animation.value,
-              child: Opacity(
+              child: AnimatedOpacity(
                 opacity: animation.value,
                 child: child,
+                duration: duration,
               ),
             );
             break;

@@ -404,12 +404,12 @@ class _IndicatorPainter extends CustomPainter {
       textDirection: _currentTextDirection,
     );
     /// 这么做是为了性能更好一些 但是如果应用支持横竖屏切换就会有问题
-    // if (tabRects == null) {
+    if (tabRects == null) {
       tabRects = [];
       for (int i = 0; i <= maxTabIndex; ++i) {
         tabRects.add(indicatorRect(size, i));
       }
-    // }
+    }
     if (controller.animation.value < oldValue) {
       _painter.paintIndicator(canvas, _currentRect.topLeft, configuration, tabRects[controller.index], tabRects[controller.index - 1]);
     } else if (controller.animation.value > oldValue) {
