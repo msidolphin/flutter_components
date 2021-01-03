@@ -8,7 +8,7 @@ class Dialog {
     @required BuildContext context,
     bool barrierDismissible = true,
     @required Widget child,
-    DialogTransaction transaction = DialogTransaction.slide,
+    DialogTransition transaction = DialogTransition.slide,
     Duration duration = const Duration(milliseconds: 550),
   }) {
     final ThemeData theme = Theme.of(context, shadowThemeOnly: true);
@@ -34,14 +34,10 @@ class Dialog {
       barrierColor: Colors.black45,
       transitionDuration: duration,
       transitionBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-        return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: FadeTransition(
-            opacity: CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-            ),
-            child: transaction == DialogTransaction.slide ? SlideTransition(
+        Widget widget = child;
+        switch(transaction) {
+          case DialogTransition.slide:
+            widget = SlideTransition(
               position: Tween<Offset>(
                   begin: const Offset(0.0, 0.3),
                   end: Offset.zero
@@ -51,15 +47,56 @@ class Dialog {
                     .easeOutBack : ElasticOutCurve(0.85),
               )),
               child: child,
-            ) : transaction == DialogTransaction.scale ?
-              Transform.scale(
-                scale: animation.value,
-                child: Opacity(
-                  opacity: animation.value,
-                  child: child,
+            );
+            break;
+          case DialogTransition.scale:
+            widget = Transform.scale(
+              scale: animation.value,
+              child: Opacity(
+                opacity: animation.value,
+                child: child,
+              ),
+            );
+            break;
+          case DialogTransition.endDrawer:
+            widget = SlideTransition(
+              transformHitTests: false,
+              position: new Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
                 ),
-              )
-              : child,
+              ),
+              child: child,
+            );
+            break;
+          case DialogTransition.drawer:
+            widget = SlideTransition(
+              transformHitTests: false,
+              position: new Tween<Offset>(
+                begin: const Offset(-1.0, 0.0),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                ),
+              ),
+              child: child,
+            );
+            break;
+        }
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: FadeTransition(
+            opacity: CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOut,
+            ),
+            child: widget
           ),
         );
       }
@@ -72,7 +109,9 @@ class Dialog {
 
 }
 
-enum DialogTransaction {
+enum DialogTransition {
   slide,
-  scale
+  scale,
+  endDrawer,
+  drawer
 }

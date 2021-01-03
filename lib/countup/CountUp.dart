@@ -1,26 +1,27 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_components/types.dart';
 
-// 数字滚动效果
 class CountUp extends StatefulWidget {
 
   const CountUp(this.number,{
     Key key,
     this.style,
-    this.duration: 1200,
-    this.precision: 0
+    this.duration = const Duration(microseconds: 1200),
+    this.formatter,
   }): super(key: key);
 
   final num number;
   final TextStyle style;
-  final int duration;
-  final int precision;
+  final Duration duration;
+  final ValueFormatter formatter;
 
   @override
-  _RiseNumberTextState createState() => _RiseNumberTextState();
+  _CountUpState createState() => _CountUpState();
+
 }
 
-class _RiseNumberTextState extends State<CountUp> with SingleTickerProviderStateMixin {
+class _CountUpState extends State<CountUp> with SingleTickerProviderStateMixin {
 
   Animation<double> _animation;
   AnimationController _controller;
@@ -30,7 +31,7 @@ class _RiseNumberTextState extends State<CountUp> with SingleTickerProviderState
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: Duration(milliseconds: widget.duration), vsync: this);
+    _controller = AnimationController(duration: widget.duration, vsync: this);
     final Animation curve = CurvedAnimation(parent: _controller, curve: Curves.linear);
     _animation = Tween<double>(begin: 0, end: 1).animate(curve);
     _controller.forward(from: 0);
@@ -59,8 +60,13 @@ class _RiseNumberTextState extends State<CountUp> with SingleTickerProviderState
       animation: _animation,
       builder: (_, __) {
         // 数字默认从0增长。数据变化时，由之前数字为基础变化。
+        double value = (_fromNumber + (_animation.value * (widget.number - _fromNumber)));
+        String valueStr = value.toString();
+        if (widget.formatter != null) {
+          valueStr = widget.formatter(value);
+        }
         return Text(
-          (_fromNumber + (_animation.value * (widget.number - _fromNumber))).toStringAsFixed(widget.precision).toString(),
+          valueStr,
           style: widget.style,
         );
       },

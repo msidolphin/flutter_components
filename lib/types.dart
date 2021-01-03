@@ -1,0 +1,1 @@
+typedef ValueFormatter = String Function(double value);

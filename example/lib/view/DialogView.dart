@@ -181,8 +181,8 @@ class DialogView extends StatelessWidget {
                       height: 225,
                     ),
                   ),
-                  transaction: DialogTransaction.scale,
-                  duration: Duration(milliseconds: 200)
+                  transaction: DialogTransition.drawer,
+                  duration: Duration(milliseconds: 400)
                 );
               },
             ),

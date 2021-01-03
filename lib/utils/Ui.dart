@@ -148,7 +148,7 @@ class Ui {
     Function onCancel,
     List<FlatButton> actions = const [],
     bool showCloseButton = false,
-    DialogTransaction transaction = DialogTransaction.slide,
+   DialogTransition transaction = DialogTransition.slide,
     Duration duration = const Duration(milliseconds: 550)
   }) {
     assert(child != null);
@@ -180,7 +180,7 @@ class Ui {
     Function onCancel,
     List<FlatButton> actions = const [],
     bool showCloseButton = false,
-    DialogTransaction transaction = DialogTransaction.slide,
+    DialogTransition transaction = DialogTransition.slide,
     Duration duration = const Duration(milliseconds: 550)
   }) async {
     return Dialog.show(
@@ -233,7 +233,7 @@ class Ui {
 
   static Future showDialog(BuildContext context, {
     @required Widget child,
-    DialogTransaction transaction = DialogTransaction.slide,
+    DialogTransition transaction = DialogTransition.slide,
     Duration duration = const Duration(milliseconds: 550)
   }) {
     return Dialog.show(
