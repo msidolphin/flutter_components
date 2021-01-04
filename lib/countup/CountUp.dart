@@ -7,7 +7,7 @@ class CountUp extends StatefulWidget {
   const CountUp(this.number,{
     Key key,
     this.style,
-    this.duration = const Duration(microseconds: 1200),
+    this.duration = const Duration(milliseconds: 1200),
     this.formatter,
   }): super(key: key);
 
