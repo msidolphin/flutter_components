@@ -1,14 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_components/picker/data/china_area.dart';
 import '../i18n/i18n.dart';
 import '../picker/theme/PickerTheme.dart';
 import 'package:uuid/uuid.dart';
 import '../utils/ThemeColorUtil.dart';
 import '../utils/Ui.dart';
-import 'PickerRoute.dart';
 import 'layout/PickerTitile.dart';
 import 'model/PickerColumn.dart';
 import 'model/PickerItem.dart';
@@ -17,18 +14,16 @@ typedef OnPickerValueChanged(List<String> value, List<String> text);
 
 class Picker {
 
-  static void showAreaPicker(BuildContext context, {
+  static void showChinaAreaPicker(BuildContext context, {
     List<String> value,
     int level = 3,
     OnPickerValueChanged onConfirm,
     PickerTheme theme = PickerTheme.Default,
     FlatLocale locale = FlatLocale.zh_cn
   }) async {
-    String data = await rootBundle.loadString("packages/flutter_components/picker/data/china_area.json");
-    Map<String, dynamic> jsonData = json.decode(data);
     show(
         context,
-        dataSource: jsonData,
+        dataSource: kChinaAreaData,
         level: level,
         root: '86',
         onConfirm: onConfirm,
