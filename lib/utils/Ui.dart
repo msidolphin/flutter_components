@@ -2,13 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart' hide Dialog, CloseButton;
 import 'package:flutter/material.dart' hide Dialog, CloseButton;
-import '../bottomsheet/BottomSheetRoute.dart';
 import '../dialog/ConfirmDialog.dart';
 import '../dialog/Dialog.dart';
-
-import '../model/IdLabel.dart';
 import '../widgets.dart';
-import 'ThemeColorUtil.dart';
 
 class Ui {
 
@@ -140,7 +136,7 @@ class Ui {
 
  static Future showCustomConfirmDialog(BuildContext context, {
     @required Widget child,
-    String title = '',
+    String title = '提示',
     bool showCancelButton = true,
     String cancelText = '取消',
     String confirmText = '确认',
@@ -172,7 +168,7 @@ class Ui {
 
   static Future<bool> showConfirmDialog(BuildContext context, {
     @required String message,
-    String title = '',
+    String title = '提示',
     bool showCancelButton = true,
     String cancelText = '取消',
     String confirmText = '确认',

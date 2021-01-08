@@ -150,7 +150,7 @@ class PickerViewState extends State<PickerView> {
               child: Text('地区选择：${multipleColumnsSelectedText.join("/")}'),
               onPressed: () {
 
-                Picker.showAreaPicker(context, onConfirm: (values, texts) {
+                Picker.showChinaAreaPicker(context, onConfirm: (values, texts) {
 
                 });
               },
